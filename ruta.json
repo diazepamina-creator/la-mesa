@@ -734,9 +734,27 @@
        "autor": "Postnikov III",
        "estado": "en casa",
        "unidades": [],
-       "nota": "Variedades en tu estilo favorito; Wedhorn como alternativa por haces.",
+       "nota": "Variedades en tu estilo favorito. Alternativa por haces: Wedhorn (en la ruta de Arakelov, Fase 1).",
        "rol": "respaldo",
        "respaldoDe": "mcduff-salamon"
+      },
+      {
+       "id": "mishchenko-fomenko",
+       "titulo": "A Course of Differential Geometry and Topology",
+       "autor": "Mishchenko–Fomenko",
+       "estado": "en casa",
+       "unidades": [],
+       "nota": "Enfoque geométrico, con muchos dibujos.",
+       "rol": "respaldo",
+       "respaldoDe": "mcduff-salamon"
+      },
+      {
+       "id": "mishchenko-fomenko",
+       "titulo": "A Course of Differential Geometry and Topology",
+       "autor": "Mishchenko–Fomenko",
+       "estado": "en casa",
+       "unidades": [],
+       "rol": "reserva"
       }
      ]
     },
