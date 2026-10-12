@@ -225,6 +225,12 @@ select.filtro{width:100%;margin-top:14px;padding:10px 12px;border-radius:10px;bo
 .toast{position:fixed;left:50%;top:calc(66px + env(safe-area-inset-top));transform:translateX(-50%);z-index:60;background:var(--tinta);color:var(--papel);padding:10px 16px;border-radius:12px;font-size:.88rem;box-shadow:0 10px 30px -10px rgba(0,0,0,.5);animation:ap .2s;max-width:calc(100% - 32px);text-align:center}
 .vacio{padding:24px;text-align:center;color:var(--tinta3);font-size:.9rem}
 .sep{height:1px;background:var(--linea);margin:20px 0}
+details.mas{margin-top:14px}
+details.mas summary{font-size:.85rem;color:var(--tinta2);cursor:pointer;padding:6px 0}
+.principio{margin-top:14px;padding:12px 14px;border-radius:12px;border:1px dashed var(--linea);font-family:var(--serif);font-style:italic;color:var(--tinta2);font-size:.95rem;display:flex;gap:10px;align-items:flex-start}
+.principio button{margin-left:auto;border:0;background:none;color:var(--tinta3);font-family:var(--sans);font-style:normal;font-size:.75rem;padding:2px 0;white-space:nowrap}
+.normas{margin:10px 0 0;padding-left:18px;font-size:.9rem;color:var(--tinta2)}
+.normas li{margin:6px 0}
 </style>
 </head>
 <body>
@@ -248,16 +254,25 @@ const SEED = {"ruta": {"nombre": "Mi ruta", "lineas": [{"id": "arakelov", "nombr
 const K = 'la-mesa-v1';
 const ESTADOS = {'en casa':'En casa','pdf':'PDF','pedido':'Pedido','por conseguir':'Por conseguir'};
 const DIAS = ['L','M','X','J','V','S','D'];
+const PRINCIPIOS = [
+  'Las matemáticas se hacen con lápiz y papel. La app solo lleva la cuenta.',
+  'Cerrar una sesión: menos de un minuto. Si no apetece, solo los minutos.',
+  'Foco, no prisa. Un libro abierto de verdad vale más que cinco hojeados.',
+  'Se mide por semanas: un día sin estudiar no rompe nada.',
+  'Si la app empieza a dar culpa en vez de foco, se cambia o se deja.',
+  'Un mes sin retocar la app. Las ideas de mejora, a una nota.',
+  'Atascarse en una prueba también es estudiar. Apunta dónde, y sigue otro día.'
+];
 
 /* ---------- estado ---------- */
 let S = cargar();
 let vista = 'hoy', lineaSel = null, filtroCuad = '';
 function nuevo(){
   return {v:1, ruta:JSON.parse(JSON.stringify(SEED.ruta)), mesa:JSON.parse(JSON.stringify(SEED.mesa)),
-    progreso:{}, sesiones:[], cambios:[], activa:null, ajustes:{meta:240, limFoco:2, limRatos:3}, creado:Date.now()};
+    progreso:{}, sesiones:[], cambios:[], activa:null, ajustes:{meta:240, limFoco:2, limRatos:3, congelada:Date.now()+30*864e5}, creado:Date.now()};
 }
 function cargar(){
-  try{ const s = JSON.parse(localStorage.getItem(K)); if(s && s.ruta && s.mesa) return s; }catch(e){}
+  try{ const s = JSON.parse(localStorage.getItem(K)); if(s && s.ruta && s.mesa){ if(!s.ajustes.congelada) s.ajustes.congelada=Date.now()+30*864e5; return s; } }catch(e){}
   return nuevo();
 }
 function guardar(){ try{ localStorage.setItem(K, JSON.stringify(S)); }catch(e){ toast('No se ha podido guardar en este navegador'); } }
@@ -338,9 +353,11 @@ function vHoy(){
   const ini=lunes(Date.now()), pd=porDia(), hoyK=diaClave(Date.now());
   const racha=rachaSemanas();
   let frase;
+  const ult=S.sesiones.at(-1), dias_sin= ult? Math.floor((lunesDia(Date.now())-lunesDia(ult.ini))/864e5) : null;
   if(sem>=meta) frase='Semana cumplida. Lo que venga ahora es regalo.';
-  else if(sem===0) frase='Esta semana aún está en blanco. Una sesión corta ya cuenta.';
-  else frase='Te faltan '+fmtMin(meta-sem)+' para cumplir la semana.';
+  else if(dias_sin!==null && dias_sin>=7) frase='Bienvenido de vuelta. No hay nada que recuperar: retomas donde lo dejaste.';
+  else if(sem===0) frase='Semana en blanco, y no pasa nada. Una sesión corta ya cuenta.';
+  else frase='Llevas '+fmtMin(sem)+'. La meta orienta; no es un examen.';
   const dias = DIAS.map((d,i)=>{ const k=diaClave(ini.getTime()+i*864e5+3600e3); return `<div class="${pd[k]?'si':''} ${k===hoyK?'hoy':''}">${d}<span></span></div>`; }).join('');
 
   const foco = S.mesa.foco.filter(id=>IX[id]);
@@ -358,6 +375,7 @@ function vHoy(){
     <div class="dias">${dias}</div>
   </section>
 
+  ${S.ajustes.principios!==false?`<div class="principio"><span>${PRINCIPIOS[Math.floor(lunesDia(Date.now())/864e5)%PRINCIPIOS.length]}</span><button data-act="ajustes">normas</button></div>`:''}
   <h2 class="sec">El foco <span>${foco.length? 'lo que toca ahora':''}</span></h2>
   ${foco.length? foco.map(tarjetaFoco).join('<div style="height:10px"></div>') : `<div class="card vacio">No hay nada en el foco. Elige un libro en la Ruta y ponlo en la mesa.</div>`}
 
@@ -559,13 +577,15 @@ function empezar(id){
 function registrar(id, unidad, min){
   const {b,l}=IX[id], p=prog(id);
   hoja(`<div class="eyebrow">${esc(l.nombre)} · ${esc(b.autor)}</div><h2>Cierra la sesión</h2>
-    <div class="dos"><div class="campo"><label>Minutos</label><input id="fMin" type="number" inputmode="numeric" min="1" value="${min||''}" placeholder="45"></div>
-    <div class="campo"><label>Páginas</label><input id="fPag" placeholder="40–46"></div></div>
+    <p class="pista" style="margin:6px 0 0">Basta con los minutos. Lo demás, solo si te sale solo.</p>
+    <div class="campo"><label>Minutos</label><input id="fMin" type="number" inputmode="numeric" min="1" value="${min||''}" placeholder="45"></div>
     ${b.unidades.length?`<div class="campo"><label>Unidad</label><select id="fU">${opcionesUnidad(b,unidad)}</select></div>
     <label class="check"><input type="checkbox" id="fCerro"> <span>He cerrado esta unidad</span></label>`:''}
-    <div class="campo"><label>Lo que me llevo <span class="dim">· una idea, una definición, una duda</span></label><textarea id="fLleva" placeholder="Una línea basta."></textarea></div>
+    <div class="campo"><label>Lo que me llevo <span class="dim">· opcional, una línea</span></label><textarea id="fLleva" rows="2" style="min-height:60px" placeholder="Una idea, una definición, una duda."></textarea></div>
     <div class="campo"><label>Dónde lo dejo <span class="dim">· para retomarlo sin pensar</span></label><input id="fMarca" value="${esc(p.marca)}" placeholder="Ej.: a mitad de la prueba de 2.3.4"></div>
-    <div class="campo"><label>Ejercicios hechos</label><input id="fEj" type="number" inputmode="numeric" min="0" placeholder="0"></div>
+    <details class="mas"><summary>Más detalles</summary>
+      <div class="dos"><div class="campo"><label>Páginas</label><input id="fPag" placeholder="40–46"></div>
+      <div class="campo"><label>Ejercicios</label><input id="fEj" type="number" inputmode="numeric" min="0" placeholder="0"></div></div></details>
     <div class="acciones">${S.activa?'<button class="btn peligro" data-act="descartar">Descartar</button>':''}<button class="btn" data-act="guardarSes" data-id="${id}">Guardar</button></div>`);
 }
 function guardarSes(id){
@@ -573,7 +593,7 @@ function guardarSes(id){
   if(!(min>0)){ toast('Pon los minutos'); return; }
   const uEl=$('#fU'), unidad=uEl?parseInt(uEl.value,10):-1, cerro=!!$('#fCerro')?.checked && unidad>=0;
   const s={id:Date.now().toString(36), libro:id, unidad, ini:S.activa&&S.activa.libro===id?S.activa.ini:Date.now()-min*60000, min,
-    pags:$('#fPag').value.trim(), lleva:$('#fLleva').value.trim(), ej:parseInt($('#fEj').value,10)||0, cerro};
+    pags:($('#fPag')?.value||'').trim(), lleva:$('#fLleva').value.trim(), ej:parseInt($('#fEj')?.value,10)||0, cerro};
   S.sesiones.push(s);
   const p=prog(id);
   if(cerro && !p.hechas.includes(unidad)) p.hechas.push(unidad);
@@ -581,7 +601,7 @@ function guardarSes(id){
   const padre=IX[id].b.respaldoDe; // la consulta cuenta, pero no mueve el foco
   S.activa=null; guardar(); cerrarHoja(); render();
   const sem=minSemana();
-  toast(`+${fmtMin(min)} · semana ${fmtMin(sem)} de ${fmtMin(S.ajustes.meta)}${sem>=S.ajustes.meta&&sem-min<S.ajustes.meta?' · ¡semana cumplida!':''}`);
+  toast(sem>=S.ajustes.meta&&sem-min<S.ajustes.meta ? `+${fmtMin(min)} · semana cumplida` : `+${fmtMin(min)} anotados. Bien hecho.`);
 }
 
 function ficha(id){
@@ -683,8 +703,17 @@ function guardarU(id){
 function ajustes(){
   const a=S.ajustes;
   hoja(`<h2>Ajustes</h2>
+    <div class="eyebrow" style="margin-top:6px">Normas de la casa</div>
+    <ol class="normas">
+      <li>Las matemáticas se hacen en papel; la app solo lleva la cuenta.</li>
+      <li>Registrar cuesta menos de un minuto. Lo mínimo: los minutos.</li>
+      <li>La constancia se mide por semanas, nunca por días.</li>
+      <li>Un mes sin retocar la app${S.ajustes.congelada?` (hasta el ${new Date(S.ajustes.congelada).toLocaleDateString('es-ES')})`:''}. Las mejoras, a una nota.</li>
+      <li>Si da culpa en vez de foco, se cambia o se deja.</li>
+    </ol>
+    <label class="check"><input type="checkbox" id="aPrin" ${S.ajustes.principios!==false?'checked':''}> <span>Mostrar una norma al día en Hoy</span></label>
+    <div class="sep"></div>
     <div class="campo"><label>Meta semanal (minutos)</label><input id="aMeta" type="number" inputmode="numeric" value="${a.meta}"></div>
-    <p class="pista">La constancia se mide por semanas, no por días: una semana floja no rompe nada, y cuidar de otros también cuenta como vida.</p>
     <div class="dos"><div class="campo"><label>Huecos de foco</label><input id="aLf" type="number" min="1" max="4" value="${a.limFoco}"></div>
     <div class="campo"><label>Huecos de ratos muertos</label><input id="aLr" type="number" min="0" max="6" value="${a.limRatos}"></div></div>
     <div class="acciones"><button class="btn" data-act="guardarAjustes">Guardar</button></div>
@@ -699,7 +728,7 @@ function ajustes(){
     <div class="fila" style="margin-top:10px"><button class="btn sec peq" data-act="bajarCopia">Descargar copia</button><label class="btn sec peq">Restaurar copia<input type="file" accept=".json,application/json" hidden data-act="subirCopia"></label></div>
     <div class="sep"></div>
     <div class="fila"><button class="btn peligro peq" data-act="reiniciar">Empezar de cero</button></div>
-    <p class="pista" style="margin-top:18px">© Andrés Asensio · La mesa v1</p>`);
+    <p class="pista" style="margin-top:18px">© Andrés Asensio · La mesa v1.1</p>`);
 }
 function bajar(nombre, obj){
   const b=new Blob([JSON.stringify(obj,null,1)],{type:'application/json'});
@@ -759,7 +788,7 @@ document.addEventListener('click', e=>{
     case 'editarU': editarU(id); break;
     case 'guardarU': guardarU(id); break;
     case 'borrarSes': if(confirm('¿Borrar esta sesión del cuaderno?')){ S.sesiones=S.sesiones.filter(s=>s.id!==id); guardar(); render(); } break;
-    case 'guardarAjustes': { S.ajustes.meta=Math.max(10,parseInt($('#aMeta').value,10)||240); S.ajustes.limFoco=Math.max(1,Math.min(4,parseInt($('#aLf').value,10)||2)); S.ajustes.limRatos=Math.max(0,Math.min(6,parseInt($('#aLr').value,10)||0)); guardar(); cerrarHoja(); render(); toast('Ajustes guardados'); break; }
+    case 'guardarAjustes': { S.ajustes.meta=Math.max(10,parseInt($('#aMeta').value,10)||240); S.ajustes.limFoco=Math.max(1,Math.min(4,parseInt($('#aLf').value,10)||2)); S.ajustes.limRatos=Math.max(0,Math.min(6,parseInt($('#aLr').value,10)||0)); S.ajustes.principios=$('#aPrin').checked; guardar(); cerrarHoja(); render(); toast('Ajustes guardados'); break; }
     case 'pegarRuta': hoja(`<h2>Pegar ruta</h2><p class="pista">Pega aquí el JSON de la ruta.</p><div class="campo"><textarea id="fRuta" class="mono" placeholder='{"nombre":"Mi ruta","lineas":[...]}'></textarea></div><div class="acciones"><button class="btn sec" data-act="ajustes">Volver</button><button class="btn" data-act="aplicarPegada">Cargar</button></div>`); break;
     case 'aplicarPegada': aplicarRuta($('#fRuta').value); break;
     case 'bajarRuta': bajar('ruta.json', {nombre:S.ruta.nombre, lineas:S.ruta.lineas, mesa:S.mesa}); break;
