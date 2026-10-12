@@ -357,7 +357,14 @@ function vHoy(){
   if(sem>=meta) frase='Semana cumplida. Lo que venga ahora es regalo.';
   else if(dias_sin!==null && dias_sin>=7) frase='Bienvenido de vuelta. No hay nada que recuperar: retomas donde lo dejaste.';
   else if(sem===0) frase='Semana en blanco, y no pasa nada. Una sesión corta ya cuenta.';
-  else frase='Llevas '+fmtMin(sem)+'. La meta orienta; no es un examen.';
+  else {
+    const r=sem/meta, sigH=Math.ceil((sem+1)/60)*60, faltaH=sigH-sem;
+    if(faltaH<=20 && sigH<meta) frase= sigH===60 ? 'A '+faltaH+' min de tu primera hora de la semana.' : 'A '+faltaH+' min de las '+(sigH/60)+' h esta semana.';
+    else if(r>=0.75) frase='Casi está: '+fmtMin(meta-sem)+' más y semana cumplida.';
+    else if(r>=0.5) frase='Más de media semana hecha. Buen ritmo.';
+    else frase='Llevas '+fmtMin(sem)+'. La meta orienta; no es un examen.';
+  }
+  const ps=proximoSello();
   const dias = DIAS.map((d,i)=>{ const k=diaClave(ini.getTime()+i*864e5+3600e3); return `<div class="${pd[k]?'si':''} ${k===hoyK?'hoy':''}">${d}<span></span></div>`; }).join('');
 
   const foco = S.mesa.foco.filter(id=>IX[id]);
@@ -372,6 +379,7 @@ function vHoy(){
       <div style="text-align:right"><div class="eyebrow">Meta</div><div class="num muted">${fmtMin(meta)}</div></div></div>
     <div class="barra"><b style="width:${p*100}%"></b></div>
     <div class="muted" style="font-size:.88rem">${frase}${racha>1?` <span class="dim">· ${racha} semanas seguidas cumplidas</span>`:''}</div>
+    ${ps?`<div class="pista" style="margin-top:8px">Próximo sello: <b style="font-weight:500;color:var(--tinta2)">${ps.n}</b> · ${ps.falta}</div>`:''}
     <div class="dias">${dias}</div>
   </section>
 
@@ -512,6 +520,24 @@ const SELLOS = [
   ['Fiel al foco', s=>s.fiel>=20, 'M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z'],
   ['Cien ideas', s=>s.ideas>=100, 'M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9V16h7v-2.1A6 6 0 0 0 12 3z'],
 ];
+function proximoSello(){
+  const min=S.sesiones.reduce((a,s)=>a+s.min,0), ses=S.sesiones.length;
+  const uds=Object.values(S.progreso).reduce((a,p)=>a+(p.hechas?.length||0),0), ideas=S.sesiones.filter(s=>s.lleva).length;
+  const c=[
+    ['Primera sesión', 1-ses, 'una sesión y es tuyo', 1],
+    ['10 horas', 600-min, 'te faltan '+fmtMin(600-min), 600],
+    ['50 horas', 3000-min, 'te faltan '+fmtMin(3000-min), 3000],
+    ['100 horas', 6000-min, 'te faltan '+fmtMin(6000-min), 6000],
+    ['10 sesiones', 10-ses, (10-ses)+(10-ses===1?' sesión':' sesiones'), 10],
+    ['50 sesiones', 50-ses, (50-ses)+' sesiones', 50],
+    ['Unidad cerrada', 1-uds, 'cierra una unidad', 1],
+    ['25 unidades', 25-uds, (25-uds)+(25-uds===1?' unidad':' unidades'), 25],
+    ['Cien ideas', 100-ideas, (100-ideas)+' ideas apuntadas', 100],
+  ].filter(x=>x[1]>0);
+  if(!c.length) return null;
+  c.sort((a,b)=>a[1]/a[3]-b[1]/b[3]);
+  return {n:c[0][0], falta:c[0][2]};
+}
 function mejorRacha(){
   const meta=S.ajustes.meta; if(!S.sesiones.length) return 0;
   let t=lunes(Math.min(...S.sesiones.map(s=>s.ini))).getTime(), fin=Date.now(), best=0, cur=0;
