@@ -1,0 +1,790 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f3eee3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#16140f" media="(prefers-color-scheme: dark)">
+<title>La mesa</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!--
+  La mesa · ruta de estudio personal
+  © Andrés Asensio · uso personal
+  Un único HTML. Los datos viven en el almacenamiento del navegador del móvil:
+  haz copia de seguridad desde Ajustes de vez en cuando.
+-->
+<style>
+:root{
+  --papel:#f3eee3; --papel2:#ebe4d5; --tarjeta:#fbf8f1; --tinta:#1f1b16; --tinta2:#5b5348; --tinta3:#8d8476;
+  --linea:#d9d0bf; --laton:#b0893a; --ok:#3b6a4c; --aviso:#9a4a24;
+  --sombra:0 1px 0 rgba(31,27,22,.06),0 6px 18px -10px rgba(31,27,22,.25);
+  --serif:"Fraunces",Georgia,serif; --sans:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --r:14px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --papel:#16140f; --papel2:#1e1b15; --tarjeta:#221f18; --tinta:#efe8da; --tinta2:#b9b0a0; --tinta3:#857d6f;
+  --linea:#363127; --laton:#d0a957; --ok:#7fb08d; --aviso:#e08a5e;
+  --sombra:0 1px 0 rgba(0,0,0,.3),0 8px 20px -12px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  --papel:#16140f; --papel2:#1e1b15; --tarjeta:#221f18; --tinta:#efe8da; --tinta2:#b9b0a0; --tinta3:#857d6f;
+  --linea:#363127; --laton:#d0a957; --ok:#7fb08d; --aviso:#e08a5e;
+  --sombra:0 1px 0 rgba(0,0,0,.3),0 8px 20px -12px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--sans);font-size:16px;line-height:1.45;-webkit-tap-highlight-color:transparent}
+body{min-height:100dvh;padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.wrap{max-width:640px;margin:0 auto;padding:0 16px}
+header.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--papel) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--linea);padding-top:env(safe-area-inset-top)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.marca{font-family:var(--serif);font-size:1.35rem;font-weight:600;letter-spacing:.2px}
+.marca small{font-family:var(--sans);font-weight:400;font-size:.75rem;color:var(--tinta3);margin-left:8px;letter-spacing:.06em;text-transform:uppercase}
+.icobtn{width:40px;height:40px;border-radius:50%;border:1px solid var(--linea);background:var(--tarjeta);display:grid;place-items:center}
+.icobtn svg{width:20px;height:20px;stroke:var(--tinta2);fill:none;stroke-width:1.6}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--tarjeta);border-top:1px solid var(--linea);padding-bottom:env(safe-area-inset-bottom)}
+nav.tabs .wrap{display:grid;grid-template-columns:repeat(4,1fr);height:64px}
+nav.tabs button{background:none;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:.72rem;color:var(--tinta3);letter-spacing:.03em}
+nav.tabs button svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.6}
+nav.tabs button.on{color:var(--tinta)}
+nav.tabs button.on svg{stroke:var(--laton)}
+h1,h2,h3{font-family:var(--serif);font-weight:600;margin:0}
+h2.sec{font-size:1.05rem;margin:28px 0 10px;display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+h2.sec span{font-family:var(--sans);font-weight:400;font-size:.78rem;color:var(--tinta3)}
+.eyebrow{font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--tinta3)}
+.card{background:var(--tarjeta);border:1px solid var(--linea);border-radius:var(--r);box-shadow:var(--sombra)}
+.muted{color:var(--tinta2)} .dim{color:var(--tinta3)}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.btn{border:1px solid var(--tinta);background:var(--tinta);color:var(--papel);border-radius:999px;padding:10px 18px;font-weight:500;font-size:.95rem;display:inline-flex;align-items:center;gap:8px}
+.btn.sec{background:transparent;color:var(--tinta);border-color:var(--linea)}
+.btn.peq{padding:7px 13px;font-size:.85rem}
+.btn.peligro{background:transparent;color:var(--aviso);border-color:color-mix(in srgb,var(--aviso) 45%,transparent)}
+.btn:disabled{opacity:.4}
+.fila{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:.74rem;padding:3px 9px;border-radius:999px;border:1px solid var(--linea);color:var(--tinta2);white-space:nowrap}
+.chip i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.pista{font-size:.8rem;color:var(--tinta3)}
+/* hoy */
+.saludo{padding:22px 0 4px}
+.saludo h1{font-size:1.65rem;line-height:1.15}
+.saludo p{margin:6px 0 0;color:var(--tinta2)}
+.semana{padding:16px;margin-top:16px}
+.semana .cifras{display:flex;align-items:baseline;justify-content:space-between}
+.semana .grande{font-family:var(--serif);font-size:2rem;font-weight:600;line-height:1}
+.barra{height:10px;border-radius:999px;background:var(--papel2);margin:12px 0 10px;position:relative;overflow:hidden}
+.barra b{position:absolute;inset:0 auto 0 0;background:var(--laton);border-radius:999px;transition:width .5s}
+.dias{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:6px}
+.dias div{text-align:center;font-size:.7rem;color:var(--tinta3)}
+.dias div span{display:block;height:6px;border-radius:3px;background:var(--papel2);margin-top:4px}
+.dias div.si span{background:var(--tinta2)} .dias div.hoy{color:var(--tinta);font-weight:600}
+.libro{padding:16px;position:relative;overflow:hidden}
+.libro::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--c)}
+.libro .tit{font-family:var(--serif);font-size:1.12rem;line-height:1.2}
+.libro .aut{font-size:.85rem;color:var(--tinta2);margin-top:2px}
+.siguiente{margin:12px 0;padding:10px 12px;border-radius:10px;background:var(--papel2)}
+.siguiente .eyebrow{margin-bottom:2px}
+.siguiente .u{font-weight:500}
+.marcapaginas{font-family:var(--serif);font-style:italic;color:var(--tinta2);font-size:.95rem;margin:8px 0 0;border-left:2px solid var(--laton);padding-left:10px}
+.prog{display:flex;align-items:center;gap:10px;font-size:.78rem;color:var(--tinta3);margin-top:10px}
+.prog .barra{flex:1;height:5px;margin:0}
+.prog .barra b{background:var(--c)}
+.respaldo{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;padding-top:10px;border-top:1px dashed var(--linea);font-size:.85rem}
+.respaldo b{font-weight:500}
+.ratos{display:grid;gap:10px}
+.rato{padding:12px 14px;display:flex;align-items:center;gap:12px;position:relative;overflow:hidden}
+.rato::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--c)}
+.rato .txt{flex:1;min-width:0}
+.rato .tit{font-family:var(--serif);font-size:1rem;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rato .sub{font-size:.78rem;color:var(--tinta3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mapa{padding:14px 14px 10px;overflow-x:auto}
+.mapa .rej{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,12px);gap:3px;width:max-content}
+.mapa .rej i{width:12px;height:12px;border-radius:3px;background:var(--papel2)}
+.mapa .rej i.n1{background:color-mix(in srgb,var(--laton) 30%,var(--papel2))}
+.mapa .rej i.n2{background:color-mix(in srgb,var(--laton) 55%,var(--papel2))}
+.mapa .rej i.n3{background:color-mix(in srgb,var(--laton) 80%,var(--papel2))}
+.mapa .rej i.n4{background:var(--laton)}
+.mapa .rej i.fut{background:transparent}
+.mapa .ley{display:flex;justify-content:space-between;font-size:.72rem;color:var(--tinta3);margin-top:8px}
+.cita{padding:16px 18px}
+.cita q{font-family:var(--serif);font-style:italic;font-size:1.08rem;line-height:1.4;display:block;quotes:"«" "»"}
+.cita .pie{font-size:.78rem;color:var(--tinta3);margin-top:8px}
+/* sesión activa */
+.activa{position:fixed;left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom));z-index:25;max-width:616px;margin:0 auto;background:var(--tinta);color:var(--papel);border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 10px 30px -10px rgba(0,0,0,.5)}
+.activa .reloj{font-family:var(--mono);font-size:1.5rem;font-weight:500}
+.activa .txt{flex:1;min-width:0;font-size:.82rem;line-height:1.25}
+.activa .txt b{display:block;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.activa .btn{background:var(--papel);color:var(--tinta);border-color:var(--papel)}
+.punto{width:8px;height:8px;border-radius:50%;background:#e0644a;animation:lat 1.6s infinite}
+@keyframes lat{50%{opacity:.25}}
+body.con-activa{padding-bottom:calc(150px + env(safe-area-inset-bottom))}
+/* ruta */
+.lineas{display:flex;gap:8px;overflow-x:auto;padding:16px 0 4px;scrollbar-width:none}
+.lineas button{flex:none;border:1px solid var(--linea);background:var(--tarjeta);border-radius:999px;padding:7px 14px;font-size:.85rem;display:flex;align-items:center;gap:7px}
+.lineas button i{width:9px;height:9px;border-radius:50%}
+.lineas button.on{background:var(--tinta);color:var(--papel);border-color:var(--tinta)}
+.cabl{margin:18px 0 6px}
+.cabl h1{font-size:1.45rem}
+.etapas{position:relative;margin-top:14px}
+.etapa{position:relative;padding:0 0 22px 30px}
+.etapa::before{content:"";position:absolute;left:9px;top:22px;bottom:0;width:2px;background:var(--linea)}
+.etapa:last-child::before{display:none}
+.etapa .nodo{position:absolute;left:0;top:2px;width:20px;height:20px;border-radius:50%;border:2px solid var(--linea);background:var(--papel)}
+.etapa.hecha .nodo{background:var(--c);border-color:var(--c)}
+.etapa.aqui .nodo{border-color:var(--c);box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 22%,transparent);background:var(--tarjeta)}
+.etapa.aqui .nodo::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--c)}
+.etapa h3{font-size:1rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.aquitag{font-family:var(--sans);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;background:var(--c);color:#fff;padding:2px 8px;border-radius:999px;font-weight:500}
+.lista{margin-top:10px;display:grid;gap:8px}
+.it{padding:11px 13px;display:flex;align-items:center;gap:12px;text-align:left;width:100%;border:1px solid var(--linea);background:var(--tarjeta);border-radius:12px}
+.it .txt{flex:1;min-width:0}
+.it .tit{font-family:var(--serif);font-size:.98rem;line-height:1.2}
+.it .sub{font-size:.76rem;color:var(--tinta3);margin-top:2px}
+.it .mini{width:38px;height:38px;flex:none}
+.it.atenuado{opacity:.62}
+/* biblioteca */
+.resumenb{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+.resumenb div{padding:12px;text-align:center}
+.resumenb b{display:block;font-family:var(--serif);font-size:1.5rem;line-height:1.1}
+.resumenb span{font-size:.72rem;color:var(--tinta3)}
+.estante{margin-top:22px}
+.estante h3{font-size:.95rem;display:flex;align-items:center;gap:8px}
+.estante h3 i{width:10px;height:10px;border-radius:50%}
+.balda{display:flex;margin-bottom:6px;align-items:flex-end;gap:3px;padding:12px 10px 0;margin-top:8px;border-bottom:7px solid color-mix(in srgb,var(--tinta2) 55%,var(--papel2));border-radius:4px 4px 2px 2px;background:linear-gradient(to bottom,transparent 0,color-mix(in srgb,var(--papel2) 70%,transparent) 100%);overflow-x:auto;scrollbar-width:none}
+.lomo{flex:none;position:relative;border:0;padding:0;border-radius:3px 3px 1px 1px;background:var(--c);color:#fff;overflow:hidden;box-shadow:inset -3px 0 0 rgba(0,0,0,.18),inset 2px 0 0 rgba(255,255,255,.12)}
+.lomo .t{position:absolute;inset:8px 0 18px;writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--serif);font-size:.74rem;line-height:1.05;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:0 3px;text-shadow:0 1px 1px rgba(0,0,0,.25)}
+.lomo .lleno{position:absolute;left:0;right:0;bottom:0;background:rgba(255,255,255,.22);border-top:1px solid rgba(255,255,255,.45)}
+.lomo .banda{position:absolute;left:0;right:0;bottom:6px;height:4px;background:rgba(255,255,255,.35)}
+.lomo.pedido{background:repeating-linear-gradient(135deg,var(--c) 0 6px,color-mix(in srgb,var(--c) 70%,#000) 6px 12px);opacity:.85}
+.lomo.falta{background:transparent;border:1.5px dashed var(--c);color:var(--c);box-shadow:none}
+.lomo.falta .t{text-shadow:none}
+.lomo.terminado .banda{background:var(--laton);height:6px}
+.lomo .pin{position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:10px solid var(--laton)}
+.leyenda{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;font-size:.74rem;color:var(--tinta3)}
+.leyenda span{display:flex;align-items:center;gap:6px}
+.leyenda i{width:12px;height:16px;border-radius:2px;display:inline-block}
+/* cuaderno */
+.totales{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+.totales div{padding:12px}
+.totales b{display:block;font-family:var(--serif);font-size:1.45rem;line-height:1.1}
+.totales span{font-size:.72rem;color:var(--tinta3)}
+.sellos{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px}
+.sello{padding:10px 6px;text-align:center;border-radius:12px;border:1px dashed var(--linea);color:var(--tinta3);font-size:.72rem;line-height:1.2}
+.sello svg{width:34px;height:34px;display:block;margin:0 auto 6px;stroke:currentColor;fill:none;stroke-width:1.4}
+.sello.si{border-style:solid;border-color:color-mix(in srgb,var(--laton) 60%,transparent);color:var(--tinta);background:color-mix(in srgb,var(--laton) 9%,var(--tarjeta))}
+.sello.si svg{stroke:var(--laton)}
+.dia{margin-top:18px}
+.dia .f{font-size:.78rem;color:var(--tinta3);margin-bottom:6px}.dia .f::first-letter{text-transform:uppercase}
+.entrada{padding:12px 14px;margin-bottom:8px;position:relative;overflow:hidden}
+.entrada::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c)}
+.entrada .cab{display:flex;justify-content:space-between;gap:10px;font-size:.8rem;color:var(--tinta2)}
+.entrada .cab b{font-weight:500;color:var(--tinta)}
+.entrada q{display:block;font-family:var(--serif);font-style:italic;margin-top:6px;quotes:"«" "»";font-size:1rem}
+.entrada .det{font-size:.75rem;color:var(--tinta3);margin-top:6px}
+select.filtro{width:100%;margin-top:14px;padding:10px 12px;border-radius:10px;border:1px solid var(--linea);background:var(--tarjeta)}
+/* hoja */
+.velo{position:fixed;inset:0;z-index:50;background:rgba(20,17,12,.45);display:flex;align-items:flex-end;justify-content:center;animation:ap .18s ease}
+@keyframes ap{from{opacity:0}}
+.hoja{background:var(--papel);width:100%;max-width:640px;max-height:92dvh;overflow-y:auto;border-radius:20px 20px 0 0;padding:8px 16px calc(24px + env(safe-area-inset-bottom));animation:sube .22s ease}
+@keyframes sube{from{transform:translateY(30px)}}
+.asa{width:40px;height:4px;border-radius:2px;background:var(--linea);margin:6px auto 12px}
+.hoja h2{font-size:1.3rem;line-height:1.2}
+.campo{margin-top:14px}
+.campo label{display:block;font-size:.8rem;color:var(--tinta2);margin-bottom:5px}
+.campo input,.campo select,.campo textarea{width:100%;padding:11px 12px;border-radius:10px;border:1px solid var(--linea);background:var(--tarjeta);font-size:1rem}
+.campo textarea{min-height:84px;resize:vertical;font-family:var(--serif)}
+.campo textarea.mono{font-family:var(--mono);font-size:.8rem;min-height:200px}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.check{display:flex;align-items:center;gap:10px;margin-top:14px;padding:12px;border-radius:10px;background:var(--tarjeta);border:1px solid var(--linea)}
+.check input{width:20px;height:20px;accent-color:var(--ok)}
+.acciones{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;justify-content:flex-end}
+.aviso{margin-top:14px;padding:12px 14px;border-radius:10px;background:color-mix(in srgb,var(--aviso) 10%,var(--tarjeta));border:1px solid color-mix(in srgb,var(--aviso) 35%,transparent);font-size:.88rem}
+.aviso b{color:var(--aviso)}
+.opciones{display:grid;gap:8px;margin-top:12px}
+.opcion{display:flex;align-items:flex-start;gap:10px;padding:12px;border-radius:12px;border:1px solid var(--linea);background:var(--tarjeta);text-align:left;width:100%}
+.opcion input{margin-top:3px;accent-color:var(--tinta)}
+.opcion .tit{font-family:var(--serif)}
+.opcion .sub{font-size:.78rem;color:var(--tinta3)}
+.unidades{margin-top:10px;display:grid;gap:2px}
+.unidad{display:flex;align-items:center;gap:10px;padding:9px 6px;border-radius:8px;border:0;background:none;text-align:left;width:100%;font-size:.9rem}
+.unidad .cuad{width:20px;height:20px;border-radius:5px;border:1.5px solid var(--tinta3);flex:none;display:grid;place-items:center}
+.unidad.hecha .cuad{background:var(--ok);border-color:var(--ok)}
+.unidad.hecha .cuad::after{content:"";width:9px;height:5px;border:2px solid #fff;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.unidad.hecha span.t{color:var(--tinta3);text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--tinta3) 50%,transparent)}
+.unidad.sig{background:color-mix(in srgb,var(--laton) 12%,transparent)}
+.unidad .p{margin-left:auto;font-family:var(--mono);font-size:.75rem;color:var(--tinta3)}
+.estad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.estad div{padding:10px;text-align:center}
+.estad b{display:block;font-family:var(--serif);font-size:1.25rem}
+.estad span{font-size:.7rem;color:var(--tinta3)}
+.toast{position:fixed;left:50%;top:calc(66px + env(safe-area-inset-top));transform:translateX(-50%);z-index:60;background:var(--tinta);color:var(--papel);padding:10px 16px;border-radius:12px;font-size:.88rem;box-shadow:0 10px 30px -10px rgba(0,0,0,.5);animation:ap .2s;max-width:calc(100% - 32px);text-align:center}
+.vacio{padding:24px;text-align:center;color:var(--tinta3);font-size:.9rem}
+.sep{height:1px;background:var(--linea);margin:20px 0}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="marca">La mesa<small>ruta de estudio</small></div>
+  <button class="icobtn" data-act="ajustes" aria-label="Ajustes"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
+</div></header>
+
+<main class="wrap" id="vista"></main>
+<div id="activa"></div>
+
+<nav class="tabs"><div class="wrap">
+  <button data-tab="hoy"><svg viewBox="0 0 24 24"><path d="M3 10h18M5 10v9M19 10v9M8 10V6h8v4"/><path d="M2 21h20"/></svg>Hoy</button>
+  <button data-tab="ruta"><svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h5a3 3 0 0 0 0-6h-2a3 3 0 0 1 0-6h5"/></svg>Ruta</button>
+  <button data-tab="biblio"><svg viewBox="0 0 24 24"><path d="M4 20V5M8 20V4M12 20V7l4-2.5 4 15"/><path d="M2 20h20"/></svg>Biblioteca</button>
+  <button data-tab="cuaderno"><svg viewBox="0 0 24 24"><path d="M6 3h11a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6z"/><path d="M6 3v18M10 8h5M10 12h5"/></svg>Cuaderno</button>
+</div></nav>
+
+<script>
+const SEED = {"ruta": {"nombre": "Mi ruta", "lineas": [{"id": "arakelov", "nombre": "Arakelov", "sub": "línea principal", "color": "#2f4f86", "etapas": [{"nombre": "Fase 0 · Esquemas", "libros": [{"id": "cutkosky", "titulo": "Introduction to Algebraic Geometry", "autor": "Cutkosky", "estado": "en casa", "unidades": [{"t": "1.1 Basic algebra", "p": 1}, {"t": "1.2 Field extensions", "p": 6}, {"t": "1.3 Modules", "p": 8}, {"t": "1.4 Localization", "p": 9}, {"t": "1.5 Noetherian rings and factorization", "p": 10}, {"t": "1.6 Primary decomposition", "p": 13}, {"t": "1.7 Integral extensions", "p": 16}, {"t": "1.8 Dimension", "p": 19}, {"t": "1.9 Depth", "p": 20}, {"t": "1.10 Normal rings and regular rings", "p": 22}, {"t": "2.1 Affine space and algebraic sets", "p": 27}, {"t": "2.2 Regular functions and regular maps of affine algebraic sets", "p": 33}, {"t": "2.3 Finite maps", "p": 40}, {"t": "2.4 Dimension of algebraic sets", "p": 42}, {"t": "2.5 Regular functions and regular maps of quasi-affine varieties", "p": 48}, {"t": "2.6 Rational maps of affine varieties", "p": 58}, {"t": "3.1 Standard graded algebras", "p": 63}, {"t": "3.2 Projective varieties", "p": 67}, {"t": "3.3 Grassmann varieties", "p": 73}, {"t": "3.4 Regular functions and regular maps of quasi-projective varieties", "p": 74}, {"t": "4.1 Criteria for regular maps", "p": 87}, {"t": "4.2 Linear isomorphisms of projective space", "p": 90}, {"t": "4.3 The Veronese embedding", "p": 91}, {"t": "4.4 Rational maps of quasi-projective varieties", "p": 93}, {"t": "4.5 Projection from a linear subspace", "p": 95}, {"t": "5.1 Tensor products", "p": 99}, {"t": "5.2 Products of varieties", "p": 101}, {"t": "5.3 The Segre embedding", "p": 105}, {"t": "5.4 Graphs of regular and rational maps", "p": 106}, {"t": "6.1 The blow-up of an ideal in an affine variety", "p": 111}, {"t": "6.2 The blow-up of an ideal in a projective variety", "p": 120}, {"t": "7.1 Affine and finite maps", "p": 127}, {"t": "7.2 Finite maps", "p": 131}, {"t": "7.3 Construction of the normalization", "p": 135}, {"t": "8.1 Properties of dimension", "p": 139}, {"t": "8.2 The theorem on dimension of fibers", "p": 141}, {"t": "9 Zariski’s Main Theorem", "p": 147}, {"t": "10.1 Regular parameters", "p": 153}, {"t": "10.2 Local equations", "p": 155}, {"t": "10.3 The tangent space", "p": 156}, {"t": "10.4 Nonsingularity and the singular locus", "p": 159}, {"t": "10.5 Applications to rational maps", "p": 165}, {"t": "10.6 Factorization of birational regular maps of nonsingular surfaces", "p": 168}, {"t": "10.7 Projective embedding of nonsingular varieties", "p": 170}, {"t": "10.8 Complex manifolds", "p": 175}, {"t": "11.1 Limits", "p": 181}, {"t": "11.2 Presheaves and sheaves", "p": 185}, {"t": "11.3 Some sheaves associated to modules", "p": 196}, {"t": "11.4 Quasi-coherent and coherent sheaves", "p": 200}, {"t": "11.5 Constructions of sheaves from sheaves of modules", "p": 204}, {"t": "11.6 Some theorems about coherent sheaves", "p": 209}, {"t": "12.1 Blow-ups of ideal sheaves", "p": 221}, {"t": "12.2 Resolution of singularities", "p": 225}, {"t": "12.3 Valuations in algebraic geometry", "p": 228}, {"t": "12.4 Factorization of birational maps", "p": 232}, {"t": "12.5 Monomialization of maps", "p": 236}, {"t": "13.1 Divisors and the class group", "p": 240}, {"t": "13.2 The sheaf associated to a divisor", "p": 242}, {"t": "13.3 Divisors associated to forms", "p": 249}, {"t": "13.4 Calculation of some class groups", "p": 249}, {"t": "13.5 The class group of a curve", "p": 254}, {"t": "13.6 Divisors, rational maps, and linear systems", "p": 259}, {"t": "13.7 Criteria for closed embeddings", "p": 264}, {"t": "13.8 Invertible sheaves", "p": 269}, {"t": "13.9 Transition functions", "p": 271}, {"t": "14.1 Derivations and Kähler differentials", "p": 279}, {"t": "14.2 Differentials on varieties", "p": 283}, {"t": "14.3 𝑛-forms and canonical divisors", "p": 286}, {"t": "15.1 Subschemes of varieties, schemes, and Cartier divisors", "p": 289}, {"t": "15.2 Blow-ups of ideals and associated graded rings of ideals", "p": 293}, {"t": "15.3 Abstract algebraic varieties", "p": 295}, {"t": "15.4 Varieties over nonclosed fields", "p": 296}, {"t": "15.5 General schemes", "p": 296}, {"t": "16 The Degree of a Projective Variety", "p": 299}, {"t": "17.1 Complexes", "p": 307}, {"t": "17.2 Sheaf cohomology", "p": 308}, {"t": "17.3 Čech cohomology", "p": 310}, {"t": "17.4 Applications", "p": 312}, {"t": "17.5 Higher direct images of sheaves", "p": 320}, {"t": "17.6 Local cohomology and regularity", "p": 325}, {"t": "18.1 The Riemann-Roch inequality", "p": 334}, {"t": "18.2 Serre duality", "p": 335}, {"t": "18.3 The Riemann-Roch theorem", "p": 340}, {"t": "18.4 The Riemann-Roch problem on varieties", "p": 343}, {"t": "18.5 The Hurwitz theorem", "p": 345}, {"t": "18.6 Inseparable maps of curves", "p": 348}, {"t": "18.7 Elliptic curves", "p": 351}, {"t": "18.8 Complex curves", "p": 358}, {"t": "18.9 Abelian varieties and Jacobians of curves", "p": 360}, {"t": "19.1 Definition, properties, and some examples of intersection numbers", "p": 366}, {"t": "19.2 Applications to degree and multiplicity", "p": 375}, {"t": "20.1 The Riemann-Roch theorem and the Hodge index theorem on a surface", "p": 379}, {"t": "20.2 Contractions and linear systems", "p": 383}, {"t": "21.1 Norms and Traces", "p": 392}, {"t": "21.2 Integral extensions", "p": 393}, {"t": "21.3 Discriminants and ramification", "p": 398}, {"t": "21.4 Ramification of regular maps of varieties", "p": 406}, {"t": "21.5 Completion", "p": 408}, {"t": "21.6 Zariski’s main theorem and Zariski’s subspace theorem", "p": 413}, {"t": "21.7 Galois theory of varieties", "p": 421}, {"t": "21.8 Derivations and Kähler differentials redux", "p": 424}, {"t": "21.9 Étale maps and uniformizing parameters", "p": 426}, {"t": "21.10 Purity of the branch locus and the Abhyankar-Jung theorem", "p": 433}, {"t": "21.11 Galois theory of local rings", "p": 438}, {"t": "21.12 A proof of the Abhyankar-Jung theorem", "p": 441}, {"t": "22.1 Geometric integrality", "p": 452}, {"t": "22.2 Nonsingularity of the general fiber", "p": 454}, {"t": "22.3 Bertini’s second theorem", "p": 457}, {"t": "22.4 Bertini’s first theorem", "p": 458}], "nota": "En tándem con Manin: Cutkosky da ejemplos y ejercicios; Manin, la visión categórica."}, {"id": "manin-esquemas", "titulo": "Introduction to the Theory of Schemes", "autor": "Manin", "estado": "en casa", "unidades": [{"t": "1 Affine schemes"}, {"t": "2 Sheaves, schemes and projective spaces"}], "nota": "Índice orientativo, escrito de memoria: revísalo con tu ejemplar (Editar unidades)."}, {"id": "eisenbud-ca", "titulo": "Commutative Algebra with a View Toward Algebraic Geometry", "autor": "Eisenbud", "estado": "en casa", "unidades": [], "nota": "Solo cuando Cutkosky dé algo por sabido.", "rol": "respaldo", "respaldoDe": "cutkosky"}]}, {"nombre": "Fase 1", "libros": [{"id": "hartshorne", "titulo": "Algebraic Geometry", "autor": "Hartshorne", "estado": "en casa", "unidades": []}, {"id": "eisenbud-harris", "titulo": "The Geometry of Schemes", "autor": "Eisenbud–Harris", "estado": "en casa", "unidades": []}, {"id": "wedhorn", "titulo": "Manifolds, Sheaves, and Cohomology", "autor": "Wedhorn", "estado": "en casa", "unidades": [], "rol": "respaldo"}]}, {"nombre": "Fase 2", "libros": [{"id": "liu", "titulo": "Algebraic Geometry and Arithmetic Curves", "autor": "Liu", "estado": "en casa", "unidades": []}, {"id": "lang-arakelov", "titulo": "Introduction to Arakelov Theory", "autor": "Lang", "estado": "en casa", "unidades": []}, {"id": "huybrechts", "titulo": "Complex Geometry", "autor": "Huybrechts", "estado": "en casa", "unidades": []}, {"id": "griffiths-harris", "titulo": "Principles of Algebraic Geometry", "autor": "Griffiths–Harris", "estado": "en casa", "unidades": []}, {"id": "fresnel", "titulo": "Rigid Analytic Geometry and Its Applications", "autor": "Fresnel–van der Put", "estado": "en casa", "unidades": []}, {"id": "neukirch", "titulo": "Algebraic Number Theory", "autor": "Neukirch", "estado": "en casa", "unidades": [], "rol": "respaldo"}, {"id": "fesenko", "titulo": "Local Fields and Their Extensions", "autor": "Fesenko–Vostokov", "estado": "en casa", "unidades": [], "rol": "respaldo"}]}, {"nombre": "Fase 3", "libros": [{"id": "fulton", "titulo": "Intersection Theory", "autor": "Fulton", "estado": "en casa", "unidades": []}]}, {"nombre": "Fase 4", "libros": [{"id": "soule", "titulo": "Lectures on Arakelov Geometry", "autor": "Soulé", "estado": "por conseguir", "unidades": []}]}, {"nombre": "Fase 5", "libros": [{"id": "moriwaki", "titulo": "Arakelov Geometry", "autor": "Moriwaki", "estado": "en casa", "unidades": []}]}, {"nombre": "Fase 6 · Tesis", "libros": [{"id": "gelfand-manin", "titulo": "Methods of Homological Algebra", "autor": "Gelfand–Manin", "estado": "en casa", "unidades": []}, {"id": "jardine", "titulo": "Generalized Etale Cohomology Theories", "autor": "Jardine", "estado": "en casa", "unidades": []}, {"id": "mwv", "titulo": "Lecture Notes on Motivic Cohomology", "autor": "Mazza–Voevodsky–Weibel", "estado": "en casa", "unidades": []}, {"id": "peyre-remond", "titulo": "Arakelov Geometry and Diophantine Applications", "autor": "Peyre–Rémond (eds.)", "estado": "por conseguir", "unidades": []}, {"id": "chen-moriwaki", "titulo": "Arakelov Geometry over Adelic Curves", "autor": "Chen–Moriwaki", "estado": "por conseguir", "unidades": []}]}]}, {"id": "kohno", "nombre": "Hacia Kohno", "sub": "línea de placer", "color": "#8c3a2b", "etapas": [{"nombre": "Mecánica", "libros": [{"id": "arnold", "titulo": "Mathematical Methods of Classical Mechanics", "autor": "Arnold", "estado": "en casa", "unidades": [{"t": "1 Experimental facts"}, {"t": "2 Investigation of the equations of motion"}, {"t": "3 Variational principles"}, {"t": "4 Lagrangian mechanics on manifolds"}, {"t": "5 Oscillations"}, {"t": "6 Rigid bodies"}, {"t": "7 Differential forms"}, {"t": "8 Symplectic manifolds"}, {"t": "9 Canonical formalism"}, {"t": "10 Introduction to perturbation theory"}], "nota": "Índice orientativo, escrito de memoria: revísalo con tu ejemplar (Editar unidades)."}]}, {"nombre": "Lie", "libros": [{"id": "postnikov-5", "titulo": "Lie Groups and Lie Algebras", "autor": "Postnikov V", "estado": "en casa", "unidades": []}]}, {"nombre": "Simpléctica", "libros": [{"id": "mcduff-salamon", "titulo": "Introduction to Symplectic Topology", "autor": "McDuff–Salamon", "estado": "en casa", "unidades": [], "nota": "Solo caps. 1–3 y 5."}]}, {"nombre": "Grupos de lazos", "libros": [{"id": "pressley-segal", "titulo": "Loop Groups", "autor": "Pressley–Segal", "estado": "por conseguir", "unidades": []}]}, {"nombre": "Trenzas y nudos", "libros": [{"id": "kassel-turaev", "titulo": "Braid Groups", "autor": "Kassel–Turaev", "estado": "en casa", "unidades": []}, {"id": "lickorish", "titulo": "An Introduction to Knot Theory", "autor": "Lickorish", "estado": "en casa", "unidades": []}]}, {"nombre": "Grupos cuánticos", "libros": [{"id": "kassel-qg", "titulo": "Quantum Groups", "autor": "Kassel", "estado": "en casa", "unidades": []}]}, {"nombre": "Kohno", "libros": [{"id": "kohno", "titulo": "Conformal Field Theory and Topology", "autor": "Kohno", "estado": "en casa", "unidades": []}]}]}, {"id": "cuantica", "nombre": "Cohomología cuántica", "sub": "hacia Manin", "color": "#3b6a4c", "etapas": [{"nombre": "Entrada", "libros": [{"id": "kock", "titulo": "An Invitation to Quantum Cohomology", "autor": "Kock–Vainsencher", "estado": "en casa", "unidades": [{"t": "0 Preliminaries"}, {"t": "1 Stable n-pointed curves"}, {"t": "2 Stable maps"}, {"t": "3 Enumerative geometry via stable maps"}, {"t": "4 Gromov-Witten invariants"}, {"t": "5 Quantum cohomology"}, {"t": "6 Applications and examples"}], "nota": "Índice orientativo, escrito de memoria: revísalo con tu ejemplar (Editar unidades)."}]}, {"nombre": "Moduli de curvas", "libros": [{"id": "harris-morrison", "titulo": "Moduli of Curves", "autor": "Harris–Morrison", "estado": "en casa", "unidades": [], "rol": "respaldo"}, {"id": "prasolov-curvas", "titulo": "Algebraic Curves. Towards Moduli Spaces", "autor": "Prasolov et al.", "estado": "en casa", "unidades": [], "rol": "respaldo"}]}, {"nombre": "Manin", "libros": [{"id": "manin-frobenius", "titulo": "Frobenius Manifolds, Quantum Cohomology, and Moduli Spaces", "autor": "Manin", "estado": "en casa", "unidades": []}]}, {"nombre": "Espejo", "libros": [{"id": "cox-katz", "titulo": "Mirror Symmetry and Algebraic Geometry", "autor": "Cox–Katz", "estado": "por conseguir", "unidades": []}]}]}, {"id": "bousfield", "nombre": "TFM y Bousfield", "sub": "proyecto con Casacuberta", "color": "#a3761b", "etapas": [{"nombre": "Releer (en pausa)", "libros": [{"id": "tfm", "titulo": "Acyclicity in Algebraic K-theory", "autor": "Asensio (TFM, 2016)", "estado": "pdf", "unidades": [{"t": "Introducción", "p": 1}, {"t": "1.1 Definition and properties", "p": 5}, {"t": "1.2 Sections", "p": 8}, {"t": "1.3 Operations on vector bundles", "p": 8}, {"t": "1.4 Transition functions", "p": 9}, {"t": "1.5 Paracompact spaces", "p": 10}, {"t": "1.6 Classification of vector bundles", "p": 11}, {"t": "1.7 Group completion", "p": 14}, {"t": "1.8 Relative K-groups", "p": 16}, {"t": "1.9 Vector bundles over quotients", "p": 17}, {"t": "2.1 Notation and basic constructions", "p": 19}, {"t": "2.2 Negative K-groups", "p": 20}, {"t": "2.3 Exact sequences of K-groups", "p": 20}, {"t": "2.4 K-theory as a cohomology theory", "p": 23}, {"t": "2.5 The external product", "p": 25}, {"t": "2.6 K-theory of the spheres", "p": 26}, {"t": "2.7 The complex K-theory spectrum", "p": 27}, {"t": "2.8 The spectrum KU", "p": 29}, {"t": "2.9 Acyclic spaces in topological K-theory", "p": 32}, {"t": "2.10 Computation of some K-groups", "p": 33}, {"t": "3.1 Projective modules", "p": 39}, {"t": "3.2 The Grothendieck group K0", "p": 41}, {"t": "3.3 K0 from idempotents", "p": 42}, {"t": "3.4 K0 of commutative and local rings", "p": 44}, {"t": "3.5 The Serre-Swan theorem", "p": 45}, {"t": "3.6 The Bass-Whitehead group K1", "p": 47}, {"t": "3.7 K1 of commutative and local rings", "p": 49}, {"t": "4.1 Quillen's plus-construction", "p": 53}, {"t": "4.2 Higher algebraic K-theory", "p": 56}, {"t": "4.3 K-theory of finite fields", "p": 56}, {"t": "4.4 K-acyclic rings", "p": 58}, {"t": "4.5 Cone and suspension of a ring", "p": 61}]}, {"id": "weibel-kbook", "titulo": "The K-book", "autor": "Weibel", "estado": "en casa", "unidades": [], "rol": "respaldo"}, {"id": "brown", "titulo": "Cohomology of Groups", "autor": "Brown", "estado": "en casa", "unidades": [], "rol": "respaldo"}]}, {"nombre": "Hovey (en pausa)", "libros": [{"id": "hovey", "titulo": "Cohomological Bousfield Classes", "autor": "Hovey (1995)", "estado": "pdf", "unidades": [{"t": "1 Cohomological Bousfield classes"}, {"t": "2 E(n)"}, {"t": "3 Finite type and examples"}], "nota": "Índice orientativo, escrito de memoria: revísalo con tu ejemplar (Editar unidades)."}, {"id": "barnes-roitzheim", "titulo": "Foundations of Stable Homotopy Theory", "autor": "Barnes–Roitzheim", "estado": "por conseguir", "unidades": []}, {"id": "hazewinkel", "titulo": "Formal Groups and Applications", "autor": "Hazewinkel", "estado": "en casa", "unidades": [], "rol": "respaldo"}, {"id": "ravenel", "titulo": "Complex Cobordism and Stable Homotopy Groups of Spheres", "autor": "Ravenel", "estado": "pdf", "unidades": [], "rol": "respaldo"}]}, {"nombre": "Motívico", "libros": [{"id": "morel", "titulo": "A¹-Algebraic Topology over a Field", "autor": "Morel", "estado": "pedido", "unidades": []}, {"id": "levine-morel", "titulo": "Algebraic Cobordism", "autor": "Levine–Morel", "estado": "pedido", "unidades": []}]}]}, {"id": "opos", "nombre": "Oposiciones", "sub": "geometría clásica", "color": "#5e5476", "etapas": [{"nombre": "Geometría afín y métrica", "libros": [{"id": "postnikov-1", "titulo": "Analytic Geometry", "autor": "Postnikov I", "estado": "en casa", "unidades": []}, {"id": "postnikov-2", "titulo": "Linear Algebra and Differential Geometry", "autor": "Postnikov II", "estado": "en casa", "unidades": []}]}]}]}, "mesa": {"foco": ["cutkosky", "manin-esquemas"], "ratos": ["arnold", "kock"]}};
+const K = 'la-mesa-v1';
+const ESTADOS = {'en casa':'En casa','pdf':'PDF','pedido':'Pedido','por conseguir':'Por conseguir'};
+const DIAS = ['L','M','X','J','V','S','D'];
+
+/* ---------- estado ---------- */
+let S = cargar();
+let vista = 'hoy', lineaSel = null, filtroCuad = '';
+function nuevo(){
+  return {v:1, ruta:JSON.parse(JSON.stringify(SEED.ruta)), mesa:JSON.parse(JSON.stringify(SEED.mesa)),
+    progreso:{}, sesiones:[], cambios:[], activa:null, ajustes:{meta:240, limFoco:2, limRatos:3}, creado:Date.now()};
+}
+function cargar(){
+  try{ const s = JSON.parse(localStorage.getItem(K)); if(s && s.ruta && s.mesa) return s; }catch(e){}
+  return nuevo();
+}
+function guardar(){ try{ localStorage.setItem(K, JSON.stringify(S)); }catch(e){ toast('No se ha podido guardar en este navegador'); } }
+
+/* ---------- utilidades ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function diaClave(t){ const d=new Date(t); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function lunes(t){ const d=new Date(t); d.setHours(0,0,0,0); const w=(d.getDay()+6)%7; d.setDate(d.getDate()-w); return d; }
+function fmtMin(m){ m=Math.round(m); if(m<60) return m+' min'; const h=Math.floor(m/60), r=m%60; return h+' h'+(r?' '+r:''); }
+function horas(m){ return (m/60).toFixed(m<600?1:0).replace('.',','); }
+function haceDias(t){ const d=Math.floor((lunesDia(Date.now())-lunesDia(t))/864e5); return d<=0?'hoy':d===1?'ayer':'hace '+d+' días'; }
+function lunesDia(t){ const d=new Date(t); d.setHours(0,0,0,0); return d.getTime(); }
+function hash(s){ let h=0; for(const c of s) h=(h*31+c.charCodeAt(0))|0; return Math.abs(h); }
+
+function indice(){
+  const m = {};
+  S.ruta.lineas.forEach((l,li)=>l.etapas.forEach((e,ei)=>e.libros.forEach(b=>{ m[b.id]={b,l,e,li,ei}; })));
+  return m;
+}
+let IX = indice();
+function prog(id){ return S.progreso[id] || (S.progreso[id]={hechas:[],marca:'',pagina:''}); }
+function enMesa(id){ return S.mesa.foco.includes(id)?'foco':S.mesa.ratos.includes(id)?'ratos':null; }
+function siguiente(id){ const b=IX[id]?.b; if(!b) return -1; const h=prog(id).hechas; return b.unidades.findIndex((u,i)=>!h.includes(i)); }
+function respaldosDe(id){ return Object.values(IX).filter(x=>x.b.respaldoDe===id).map(x=>x.b); }
+function sesDe(id){ return S.sesiones.filter(s=>s.libro===id); }
+function minDe(id){ return sesDe(id).reduce((a,s)=>a+s.min,0); }
+function pct(id){ const b=IX[id]?.b; if(!b||!b.unidades.length) return prog(id).terminado?1:0; return prog(id).hechas.length/b.unidades.length; }
+function estadoLibro(id){
+  const p=prog(id); if(p.terminado) return 'terminado';
+  const m=enMesa(id); if(m) return m;
+  if(p.aparcado) return 'aparcado';
+  return IX[id].b.estado || 'en casa';
+}
+const ETQ = {foco:'En la mesa · foco', ratos:'Ratos muertos', terminado:'Terminado', aparcado:'Aparcado', 'en casa':'En casa', pdf:'PDF', pedido:'Pedido', 'por conseguir':'Por conseguir'};
+
+function minSemana(t=Date.now()){
+  const ini=lunes(t).getTime(), fin=ini+7*864e5;
+  return S.sesiones.filter(s=>s.ini>=ini&&s.ini<fin).reduce((a,s)=>a+s.min,0);
+}
+function rachaSemanas(){
+  const meta=S.ajustes.meta; let n=0; let t=lunes(Date.now()).getTime();
+  if(minSemana(t)>=meta) n++;
+  t-=7*864e5;
+  while(minSemana(t)>=meta){ n++; t-=7*864e5; }
+  return n;
+}
+function porDia(){ const m={}; S.sesiones.forEach(s=>{ const k=diaClave(s.ini); m[k]=(m[k]||0)+s.min; }); return m; }
+
+/* ---------- toast / hoja ---------- */
+let tt;
+function toast(t){ document.querySelectorAll('.toast').forEach(x=>x.remove()); const d=document.createElement('div'); d.className='toast'; d.textContent=t; document.body.append(d); clearTimeout(tt); tt=setTimeout(()=>d.remove(),2600); }
+function hoja(html, onMount){
+  cerrarHoja();
+  const v=document.createElement('div'); v.className='velo'; v.id='velo';
+  v.innerHTML='<div class="hoja" role="dialog"><div class="asa"></div>'+html+'</div>';
+  v.addEventListener('click',e=>{ if(e.target===v) cerrarHoja(); });
+  document.body.append(v); document.body.style.overflow='hidden';
+  onMount && onMount(v);
+}
+function cerrarHoja(){ $('#velo')?.remove(); document.body.style.overflow=''; }
+
+/* ---------- vistas ---------- */
+function render(){
+  IX = indice();
+  document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.toggle('on', b.dataset.tab===vista));
+  const v=$('#vista');
+  v.innerHTML = vista==='hoy'?vHoy(): vista==='ruta'?vRuta(): vista==='biblio'?vBiblio(): vCuaderno();
+  renderActiva();
+}
+
+function saludo(){
+  const h=new Date().getHours();
+  return h<6?'Buenas noches':h<14?'Buenos días':h<21?'Buenas tardes':'Buenas noches';
+}
+function vHoy(){
+  const meta=S.ajustes.meta, sem=minSemana(), p=Math.min(1,sem/meta);
+  const ini=lunes(Date.now()), pd=porDia(), hoyK=diaClave(Date.now());
+  const racha=rachaSemanas();
+  let frase;
+  if(sem>=meta) frase='Semana cumplida. Lo que venga ahora es regalo.';
+  else if(sem===0) frase='Esta semana aún está en blanco. Una sesión corta ya cuenta.';
+  else frase='Te faltan '+fmtMin(meta-sem)+' para cumplir la semana.';
+  const dias = DIAS.map((d,i)=>{ const k=diaClave(ini.getTime()+i*864e5+3600e3); return `<div class="${pd[k]?'si':''} ${k===hoyK?'hoy':''}">${d}<span></span></div>`; }).join('');
+
+  const foco = S.mesa.foco.filter(id=>IX[id]);
+  const ratos = S.mesa.ratos.filter(id=>IX[id]);
+  const ultima = [...S.sesiones].reverse().find(s=>s.lleva);
+
+  return `
+  <div class="saludo"><p class="eyebrow">${new Date().toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'})}</p>
+    <h1>${saludo()}, Andrés.</h1></div>
+  <section class="card semana">
+    <div class="cifras"><div><div class="eyebrow">Esta semana</div><div class="grande num">${fmtMin(sem)}</div></div>
+      <div style="text-align:right"><div class="eyebrow">Meta</div><div class="num muted">${fmtMin(meta)}</div></div></div>
+    <div class="barra"><b style="width:${p*100}%"></b></div>
+    <div class="muted" style="font-size:.88rem">${frase}${racha>1?` <span class="dim">· ${racha} semanas seguidas cumplidas</span>`:''}</div>
+    <div class="dias">${dias}</div>
+  </section>
+
+  <h2 class="sec">El foco <span>${foco.length? 'lo que toca ahora':''}</span></h2>
+  ${foco.length? foco.map(tarjetaFoco).join('<div style="height:10px"></div>') : `<div class="card vacio">No hay nada en el foco. Elige un libro en la Ruta y ponlo en la mesa.</div>`}
+
+  <h2 class="sec">Ratos muertos <span>sin presión</span></h2>
+  ${ratos.length? `<div class="ratos">${ratos.map(tarjetaRato).join('')}</div>` : `<div class="card vacio">Nada para ratos muertos.</div>`}
+
+  <h2 class="sec">Constancia <span>últimas 18 semanas</span></h2>
+  ${mapa()}
+
+  ${ultima?`<h2 class="sec">Lo último que te llevaste</h2>
+  <div class="card cita"><q>${esc(ultima.lleva)}</q><div class="pie">${esc(IX[ultima.libro]?.b.autor||'')}${ultima.unidad>=0&&IX[ultima.libro]?.b.unidades[ultima.unidad]?' · '+esc(IX[ultima.libro].b.unidades[ultima.unidad].t):''} · ${haceDias(ultima.ini)}</div></div>`:''}
+  <div style="height:12px"></div>`;
+}
+function tarjetaFoco(id){
+  const {b,l}=IX[id], p=prog(id), si=siguiente(id), u=b.unidades[si];
+  const res=respaldosDe(id);
+  const total=b.unidades.length, hechas=p.hechas.length;
+  return `<article class="card libro" style="--c:${l.color}">
+    <div class="eyebrow">${esc(l.nombre)}</div>
+    <div class="tit" style="margin-top:4px">${esc(b.titulo)}</div><div class="aut">${esc(b.autor)}</div>
+    ${u?`<div class="siguiente"><div class="eyebrow">Siguiente</div><div class="u">${esc(u.t)}${u.p?` <span class="dim num">· p. ${u.p}</span>`:''}</div></div>`
+       : total? `<div class="siguiente"><div class="u">Todas las unidades marcadas. ¿Lo das por terminado?</div></div>`
+       : `<div class="siguiente"><div class="u dim">Sin índice todavía · añádelo desde la ficha del libro</div></div>`}
+    ${p.marca?`<p class="marcapaginas">${esc(p.marca)}</p>`:''}
+    ${total?`<div class="prog"><div class="barra"><b style="width:${hechas/total*100}%"></b></div><span class="num">${hechas}/${total}</span></div>`:''}
+    <div class="fila" style="margin-top:14px"><button class="btn" data-act="empezar" data-id="${id}">Empezar sesión</button><button class="btn sec peq" data-act="ficha" data-id="${id}">Ficha</button></div>
+    ${res.map(r=>`<div class="respaldo"><div><span class="dim">Respaldo:</span> <b>${esc(r.autor)}</b> <span class="dim">· ${fmtMin(minDe(r.id))} de consulta</span></div><button class="btn sec peq" data-act="empezar" data-id="${r.id}">Consultar</button></div>`).join('')}
+  </article>`;
+}
+function tarjetaRato(id){
+  const {b,l}=IX[id], si=siguiente(id), u=b.unidades[si], ult=sesDe(id).at(-1);
+  return `<div class="card rato" style="--c:${l.color}">
+    <div class="txt" data-act="ficha" data-id="${id}"><div class="tit">${esc(b.autor)} · ${esc(b.titulo)}</div>
+    <div class="sub">${u?esc(u.t):'—'}${ult?' · '+haceDias(ult.ini):''}</div></div>
+    <button class="btn sec peq" data-act="empezar" data-id="${id}">Empezar</button></div>`;
+}
+function mapa(){
+  const pd=porDia(), sem=18, ini=lunes(Date.now()-(sem-1)*7*864e5).getTime(), hoy=lunesDia(Date.now());
+  let celdas='';
+  for(let i=0;i<sem*7;i++){
+    const t=ini+i*864e5+3600e3, k=diaClave(t), m=pd[k]||0;
+    const n = lunesDia(t)>hoy?'fut': m===0?'': m<30?'n1': m<60?'n2': m<120?'n3':'n4';
+    celdas+=`<i class="${n}" title="${k}: ${m} min"></i>`;
+  }
+  const dias=Object.keys(pd).filter(k=>k>=diaClave(ini)).length;
+  return `<div class="card mapa"><div class="rej">${celdas}</div><div class="ley"><span>${dias} días con estudio</span><span>menos ▢ más</span></div></div>`;
+}
+
+function etapaActual(l){
+  let aqui=-1;
+  l.etapas.forEach((e,i)=>{ if(e.libros.some(b=>enMesa(b.id))) { if(aqui<0) aqui=i; } });
+  return aqui;
+}
+function vRuta(){
+  if(!lineaSel || !S.ruta.lineas.find(l=>l.id===lineaSel)) lineaSel=S.ruta.lineas[0]?.id;
+  const l=S.ruta.lineas.find(x=>x.id===lineaSel);
+  if(!l) return `<div class="card vacio" style="margin-top:20px">No hay ruta cargada. Súbela desde Ajustes.</div>`;
+  const aqui=etapaActual(l);
+  const chips=S.ruta.lineas.map(x=>`<button class="${x.id===lineaSel?'on':''}" data-act="linea" data-id="${x.id}"><i style="background:${x.color}"></i>${esc(x.nombre)}</button>`).join('');
+  const etapas=l.etapas.map((e,i)=>{
+    const todos=e.libros.filter(b=>b.rol!=='respaldo');
+    const hecha = todos.length && todos.every(b=>prog(b.id).terminado);
+    const cls = hecha?'hecha': i===aqui?'aqui':'';
+    const libros=e.libros.map(b=>itemLibro(b,l, aqui>=0 && i>aqui)).join('');
+    return `<div class="etapa ${cls}" style="--c:${l.color}"><div class="nodo"></div>
+      <h3>${esc(e.nombre)} ${i===aqui?'<span class="aquitag">estás aquí</span>':''}</h3>
+      <div class="lista">${libros}</div></div>`;
+  }).join('');
+  return `<div class="lineas">${chips}</div>
+    <div class="cabl"><div class="eyebrow">${esc(l.sub||'')}</div><h1>${esc(l.nombre)}</h1></div>
+    <div class="etapas">${etapas}</div>`;
+}
+function anillo(id,color){
+  const p=pct(id), r=15, c=2*Math.PI*r;
+  return `<svg class="mini" viewBox="0 0 38 38"><circle cx="19" cy="19" r="${r}" fill="none" stroke="var(--linea)" stroke-width="3"/>
+  <circle cx="19" cy="19" r="${r}" fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round" stroke-dasharray="${c*p} ${c}" transform="rotate(-90 19 19)"/>
+  <text x="19" y="23" text-anchor="middle" font-size="10" font-family="IBM Plex Mono" fill="var(--tinta2)">${Math.round(p*100)}</text></svg>`;
+}
+function itemLibro(b,l,futuro){
+  const est=estadoLibro(b.id), p=prog(b.id);
+  const dot = est==='foco'||est==='ratos' ? `<i style="background:${l.color}"></i>` : '';
+  const extra = b.rol==='respaldo' ? ' · respaldo' : '';
+  const min=minDe(b.id);
+  return `<button class="it ${futuro&&est!=='terminado'?'atenuado':''}" data-act="ficha" data-id="${b.id}">
+    <div class="txt"><div class="tit">${esc(b.titulo)}</div>
+    <div class="sub">${esc(b.autor)}${extra}${min?' · '+fmtMin(min):''}</div>
+    <div style="margin-top:6px"><span class="chip">${dot}${ETQ[est]}</span>${p.aparcado&&p.marca&&est==='aparcado'?` <span class="pista">«${esc(p.marca.slice(0,40))}${p.marca.length>40?'…':''}»</span>`:''}</div></div>
+    ${b.unidades.length?anillo(b.id,l.color):''}</button>`;
+}
+
+function vBiblio(){
+  const todos=Object.values(IX);
+  const casa=todos.filter(x=>['en casa','pdf'].includes(x.b.estado||'en casa')).length;
+  const ped=todos.filter(x=>x.b.estado==='pedido').length;
+  const term=todos.filter(x=>prog(x.b.id).terminado).length;
+  const est=S.ruta.lineas.map(l=>{
+    const libs=l.etapas.flatMap(e=>e.libros);
+    return `<div class="estante"><h3><i style="background:${l.color}"></i>${esc(l.nombre)} <span class="dim" style="font-family:var(--sans);font-weight:400;font-size:.78rem">${libs.length}</span></h3>
+    ${baldas(libs,l)}</div>`;
+  }).join('');
+  return `<div class="resumenb"><div class="card"><b>${casa}</b><span>en casa</span></div><div class="card"><b>${ped}</b><span>pedidos</span></div><div class="card"><b>${term}</b><span>terminados</span></div></div>
+  ${est}
+  <div class="leyenda"><span><i style="background:var(--tinta2)"></i>en casa</span><span><i style="background:repeating-linear-gradient(135deg,var(--tinta2) 0 3px,var(--tinta3) 3px 6px)"></i>pedido</span><span><i style="border:1.5px dashed var(--tinta3)"></i>por conseguir</span><span><i style="background:var(--tinta2);border-top:5px solid var(--laton)"></i>en la mesa</span></div>
+  <p class="pista" style="margin-top:12px">La parte clara de cada lomo es lo que llevas leído. Toca un lomo para abrir su ficha.</p>`;
+}
+function medidas(b){ const h=hash(b.id), n=b.unidades.length; return {h, alto:150+(h%46), ancho:Math.max(30,Math.min(46,26+(n?Math.sqrt(n)*2:6)+(h>>3)%6))}; }
+function baldas(libs,l){
+  const max=Math.min(640,window.innerWidth)-32-20; const filas=[[]]; let w=0;
+  libs.forEach(b=>{ const a=medidas(b).ancho+3; if(w+a>max && filas.at(-1).length){ filas.push([]); w=0; } filas.at(-1).push(b); w+=a; });
+  return filas.map(f=>`<div class="balda">${f.map(b=>lomo(b,l)).join('')}</div>`).join('');
+}
+function lomo(b,l){
+  const {h,alto,ancho}=medidas(b);
+  const est=b.estado||'en casa', p=prog(b.id);
+  const cls = est==='pedido'?'pedido': est==='por conseguir'?'falta':'';
+  const lleno = pct(b.id);
+  return `<button class="lomo ${cls} ${p.terminado?'terminado':''}" style="--c:${l.color};height:${alto}px;width:${ancho}px;filter:brightness(${0.86+((h>>5)%22)/100})" data-act="ficha" data-id="${b.id}" aria-label="${esc(b.titulo)}">
+    ${lleno&&cls!=='falta'?`<div class="lleno" style="height:${lleno*100}%"></div>`:''}
+    <div class="t" style="${b.autor.length>15?'font-size:.62rem':''}">${esc(b.autor)}</div><div class="banda"></div>${enMesa(b.id)?'<div class="pin"></div>':''}</button>`;
+}
+
+const SELLOS = [
+  ['Primera sesión', s=>s.ses>=1, 'M12 3v18M3 12h18'],
+  ['10 sesiones', s=>s.ses>=10, 'M5 12l4 4 10-10'],
+  ['50 sesiones', s=>s.ses>=50, 'M4 12l4 4 6-6M10 16l2 2 8-8'],
+  ['10 horas', s=>s.min>=600, 'M12 7v5l3 2M12 3a9 9 0 1 0 0 18a9 9 0 0 0 0-18'],
+  ['50 horas', s=>s.min>=3000, 'M12 7v5l3 2M12 3a9 9 0 1 0 0 18a9 9 0 0 0 0-18M12 1v2'],
+  ['100 horas', s=>s.min>=6000, 'M12 2l3 6 6 1-4.5 4 1 6.5L12 16l-5.5 3.5 1-6.5L3 9l6-1z'],
+  ['Unidad cerrada', s=>s.uds>=1, 'M4 5h16v14H4zM8 12l3 3 5-6'],
+  ['25 unidades', s=>s.uds>=25, 'M4 5h16v14H4zM7 9h10M7 13h10M7 17h6'],
+  ['Libro terminado', s=>s.libs>=1, 'M5 4h10a4 4 0 0 1 4 4v12H9a4 4 0 0 1-4-4z'],
+  ['4 semanas', s=>s.racha>=4, 'M3 6h18v14H3zM3 10h18M8 3v4M16 3v4'],
+  ['12 semanas', s=>s.racha>=12, 'M3 6h18v14H3zM3 10h18M8 3v4M16 3v4M8 15h8'],
+  ['Fiel al foco', s=>s.fiel>=20, 'M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z'],
+  ['Cien ideas', s=>s.ideas>=100, 'M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9V16h7v-2.1A6 6 0 0 0 12 3z'],
+];
+function mejorRacha(){
+  const meta=S.ajustes.meta; if(!S.sesiones.length) return 0;
+  let t=lunes(Math.min(...S.sesiones.map(s=>s.ini))).getTime(), fin=Date.now(), best=0, cur=0;
+  while(t<=fin){ if(minSemana(t)>=meta){cur++;best=Math.max(best,cur);} else if(t+7*864e5<=fin) cur=0; t+=7*864e5; }
+  return best;
+}
+function vCuaderno(){
+  const min=S.sesiones.reduce((a,s)=>a+s.min,0);
+  const uds=Object.values(S.progreso).reduce((a,p)=>a+(p.hechas?.length||0),0);
+  const libs=Object.values(S.progreso).filter(p=>p.terminado).length;
+  const porLibro={}; S.sesiones.forEach(s=>{ if(enMesa(s.libro)==='foco') porLibro[s.libro]=(porLibro[s.libro]||0)+1; });
+  const st={ses:S.sesiones.length,min,uds,libs,racha:mejorRacha(),fiel:Math.max(0,...Object.values(porLibro)),ideas:S.sesiones.filter(s=>s.lleva).length};
+  const sellos=SELLOS.map(([n,f,d])=>`<div class="sello ${f(st)?'si':''}"><svg viewBox="0 0 24 24"><path d="${d}"/></svg>${n}</div>`).join('');
+  const usados=[...new Set(S.sesiones.map(s=>s.libro))].filter(id=>IX[id]);
+  const filtro=`<select class="filtro" data-act="filtro"><option value="">Todos los libros</option>${usados.map(id=>`<option value="${id}" ${filtroCuad===id?'selected':''}>${esc(IX[id].b.autor)} · ${esc(IX[id].b.titulo)}</option>`).join('')}</select>`;
+  const lista=[...S.sesiones].filter(s=>!filtroCuad||s.libro===filtroCuad).reverse();
+  const grupos={}; lista.forEach(s=>{ const k=diaClave(s.ini); (grupos[k]=grupos[k]||[]).push(s); });
+  const entradas=Object.entries(grupos).map(([k,ss])=>`<div class="dia"><div class="f">${new Date(ss[0].ini).toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long',year: new Date(ss[0].ini).getFullYear()!==new Date().getFullYear()?'numeric':undefined})}</div>
+    ${ss.map(s=>{ const x=IX[s.libro]; const u=x&&s.unidad>=0?x.b.unidades[s.unidad]:null;
+      return `<div class="card entrada" style="--c:${x?x.l.color:'var(--linea)'}"><div class="cab"><span><b>${esc(x?x.b.autor:'(libro borrado)')}</b>${u?' · '+esc(u.t):''}</span><span class="num">${fmtMin(s.min)}</span></div>
+      ${s.lleva?`<q>${esc(s.lleva)}</q>`:''}
+      <div class="det">${[s.pags?'pp. '+esc(s.pags):'', s.ej?s.ej+' ejercicios':'', s.cerro?'unidad cerrada':''].filter(Boolean).join(' · ')}
+      <button style="float:right;border:0;background:none;color:var(--tinta3);font-size:.72rem;padding:0;text-decoration:underline" data-act="borrarSes" data-id="${s.id}">borrar</button></div></div>`; }).join('')}</div>`).join('');
+  return `<div class="totales"><div class="card"><b class="num">${horas(min)}</b><span>horas</span></div><div class="card"><b class="num">${S.sesiones.length}</b><span>sesiones</span></div><div class="card"><b class="num">${uds}</b><span>unidades cerradas</span></div></div>
+  <h2 class="sec">Sellos <span>${SELLOS.filter(([n,f])=>f(st)).length} de ${SELLOS.length}</span></h2><div class="sellos">${sellos}</div>
+  <h2 class="sec">Lo que me he llevado</h2>${S.sesiones.length?filtro:''}
+  ${entradas||'<div class="card vacio" style="margin-top:10px">Aquí irá cada sesión con la idea que te llevaste. La primera está a un botón de distancia.</div>'}
+  ${S.cambios.length?`<h2 class="sec">Cambios de foco</h2>${[...S.cambios].reverse().map(c=>`<div class="card entrada" style="--c:var(--laton)"><div class="cab"><span>${esc(IX[c.sale]?.b.autor||c.sale)} → <b>${esc(IX[c.entra]?.b.autor||c.entra)}</b></span><span>${new Date(c.t).toLocaleDateString('es-ES')}</span></div><q>${esc(c.motivo)}</q></div>`).join('')}`:''}
+  <div style="height:12px"></div>`;
+}
+
+/* ---------- sesión activa ---------- */
+let reloj;
+function renderActiva(){
+  const a=S.activa, cont=$('#activa');
+  clearInterval(reloj);
+  document.body.classList.toggle('con-activa', !!a);
+  if(!a||!IX[a.libro]){ cont.innerHTML=''; return; }
+  const x=IX[a.libro], u=a.unidad>=0?x.b.unidades[a.unidad]:null;
+  cont.innerHTML=`<div class="activa"><span class="punto"></span><div class="reloj num" id="reloj">0:00</div>
+    <div class="txt"><b>${esc(x.b.autor)}</b>${u?esc(u.t):'Sesión en curso'}</div>
+    <button class="btn peq" data-act="terminar">Terminar</button></div>`;
+  const tick=()=>{ const s=Math.floor((Date.now()-a.ini)/1000), h=Math.floor(s/3600), m=Math.floor(s%3600/60), ss=s%60;
+    const el=$('#reloj'); if(el) el.textContent=(h?h+':'+String(m).padStart(2,'0'):m)+':'+String(ss).padStart(2,'0'); };
+  tick(); reloj=setInterval(tick,1000);
+}
+
+/* ---------- acciones ---------- */
+function opcionesUnidad(b, sel){
+  const h=prog(b.id).hechas;
+  return `<option value="-1">Sin unidad concreta</option>`+b.unidades.map((u,i)=>`<option value="${i}" ${i===sel?'selected':''}>${h.includes(i)?'✓ ':''}${esc(u.t)}</option>`).join('');
+}
+function empezar(id){
+  if(S.activa){ toast('Ya tienes una sesión en marcha'); return; }
+  const {b,l}=IX[id], si=siguiente(id);
+  const fuera = !enMesa(id) && !b.respaldoDe;
+  hoja(`<div class="eyebrow">${esc(l.nombre)}</div><h2>${esc(b.titulo)}</h2><div class="muted" style="font-size:.9rem">${esc(b.autor)}</div>
+    ${fuera?`<div class="aviso"><b>Este libro no está en la mesa.</b> Puedes registrar la sesión igualmente, pero si va a ser habitual, ponlo en la mesa desde su ficha.</div>`:''}
+    ${prog(id).marca?`<p class="marcapaginas" style="margin-top:14px">${esc(prog(id).marca)}</p>`:''}
+    ${b.unidades.length?`<div class="campo"><label>¿Qué vas a trabajar?</label><select id="fU">${opcionesUnidad(b,si)}</select></div>`:''}
+    <div class="acciones"><button class="btn sec" data-act="manual" data-id="${id}">Ya lo hice: apuntar</button><button class="btn" data-act="cronometro" data-id="${id}">Empezar cronómetro</button></div>`);
+}
+function registrar(id, unidad, min){
+  const {b,l}=IX[id], p=prog(id);
+  hoja(`<div class="eyebrow">${esc(l.nombre)} · ${esc(b.autor)}</div><h2>Cierra la sesión</h2>
+    <div class="dos"><div class="campo"><label>Minutos</label><input id="fMin" type="number" inputmode="numeric" min="1" value="${min||''}" placeholder="45"></div>
+    <div class="campo"><label>Páginas</label><input id="fPag" placeholder="40–46"></div></div>
+    ${b.unidades.length?`<div class="campo"><label>Unidad</label><select id="fU">${opcionesUnidad(b,unidad)}</select></div>
+    <label class="check"><input type="checkbox" id="fCerro"> <span>He cerrado esta unidad</span></label>`:''}
+    <div class="campo"><label>Lo que me llevo <span class="dim">· una idea, una definición, una duda</span></label><textarea id="fLleva" placeholder="Una línea basta."></textarea></div>
+    <div class="campo"><label>Dónde lo dejo <span class="dim">· para retomarlo sin pensar</span></label><input id="fMarca" value="${esc(p.marca)}" placeholder="Ej.: a mitad de la prueba de 2.3.4"></div>
+    <div class="campo"><label>Ejercicios hechos</label><input id="fEj" type="number" inputmode="numeric" min="0" placeholder="0"></div>
+    <div class="acciones">${S.activa?'<button class="btn peligro" data-act="descartar">Descartar</button>':''}<button class="btn" data-act="guardarSes" data-id="${id}">Guardar</button></div>`);
+}
+function guardarSes(id){
+  const min=parseInt($('#fMin').value,10);
+  if(!(min>0)){ toast('Pon los minutos'); return; }
+  const uEl=$('#fU'), unidad=uEl?parseInt(uEl.value,10):-1, cerro=!!$('#fCerro')?.checked && unidad>=0;
+  const s={id:Date.now().toString(36), libro:id, unidad, ini:S.activa&&S.activa.libro===id?S.activa.ini:Date.now()-min*60000, min,
+    pags:$('#fPag').value.trim(), lleva:$('#fLleva').value.trim(), ej:parseInt($('#fEj').value,10)||0, cerro};
+  S.sesiones.push(s);
+  const p=prog(id);
+  if(cerro && !p.hechas.includes(unidad)) p.hechas.push(unidad);
+  p.marca=$('#fMarca').value.trim();
+  const padre=IX[id].b.respaldoDe; // la consulta cuenta, pero no mueve el foco
+  S.activa=null; guardar(); cerrarHoja(); render();
+  const sem=minSemana();
+  toast(`+${fmtMin(min)} · semana ${fmtMin(sem)} de ${fmtMin(S.ajustes.meta)}${sem>=S.ajustes.meta&&sem-min<S.ajustes.meta?' · ¡semana cumplida!':''}`);
+}
+
+function ficha(id){
+  const {b,l,e}=IX[id], p=prog(id), est=estadoLibro(id), ses=sesDe(id), si=siguiente(id);
+  const uds=b.unidades.map((u,i)=>`<button class="unidad ${p.hechas.includes(i)?'hecha':''} ${i===si?'sig':''}" data-act="toggleU" data-id="${id}" data-i="${i}"><span class="cuad"></span><span class="t">${esc(u.t)}</span>${u.p?`<span class="p">${u.p}</span>`:''}</button>`).join('');
+  const ideas=ses.filter(s=>s.lleva).slice(-5).reverse();
+  let acciones='';
+  if(p.terminado) acciones=`<button class="btn sec" data-act="reabrir" data-id="${id}">Reabrir</button>`;
+  else if(enMesa(id)) acciones=`<button class="btn sec" data-act="aparcar" data-id="${id}">Aparcar</button><button class="btn sec" data-act="terminarLibro" data-id="${id}">Terminado</button><button class="btn" data-act="empezar" data-id="${id}">Empezar sesión</button>`;
+  else if(b.respaldoDe) acciones=`<button class="btn" data-act="empezar" data-id="${id}">Consultar</button>`;
+  else acciones=`${b.estado==='por conseguir'||b.estado==='pedido'?'':`<button class="btn" data-act="aMesa" data-id="${id}">Poner en la mesa</button>`}`;
+  hoja(`<div class="eyebrow" style="color:${l.color}">${esc(l.nombre)} · ${esc(e.nombre)}</div>
+    <h2 style="margin-top:4px">${esc(b.titulo)}</h2><div class="muted">${esc(b.autor)}${b.rol==='respaldo'?' · respaldo'+(b.respaldoDe&&IX[b.respaldoDe]?' de '+esc(IX[b.respaldoDe].b.autor):''):''}</div>
+    <div class="fila" style="margin-top:10px"><span class="chip">${ETQ[est]}</span>
+      <select data-act="estado" data-id="${id}" class="chip" style="background:var(--tarjeta)">${Object.entries(ESTADOS).map(([k,v])=>`<option value="${k}" ${(b.estado||'en casa')===k?'selected':''}>${v}</option>`).join('')}</select></div>
+    ${b.nota?`<p class="pista" style="margin-top:10px">${esc(b.nota)}</p>`:''}
+    <div class="estad"><div class="card"><b class="num">${horas(minDe(id))}</b><span>horas</span></div><div class="card"><b class="num">${ses.length}</b><span>sesiones</span></div><div class="card"><b class="num">${b.unidades.length?p.hechas.length+'/'+b.unidades.length:'—'}</b><span>unidades</span></div></div>
+    <div class="acciones" style="justify-content:flex-start">${acciones}</div>
+    <div class="campo"><label>Marcapáginas · dónde lo dejo</label><input id="fMarcaF" value="${esc(p.marca)}" placeholder="Ej.: empezar 2.4, repasar el lema de normalización" data-act="marca" data-id="${id}"></div>
+    ${ideas.length?`<div class="sep"></div><div class="eyebrow">Ideas recientes</div>${ideas.map(s=>`<p class="marcapaginas" style="margin-top:10px">${esc(s.lleva)}</p>`).join('')}`:''}
+    <div class="sep"></div>
+    <div class="fila" style="justify-content:space-between"><div class="eyebrow">Índice</div><button class="btn sec peq" data-act="editarU" data-id="${id}">Editar unidades</button></div>
+    ${b.unidades.length?`<div class="unidades">${uds}</div>`:`<p class="pista">Aún no hay índice. Pega los capítulos o secciones, uno por línea.</p>`}`);
+}
+
+function aMesa(id){
+  const {b,l,ei,li}=IX[id];
+  const lf=S.ajustes.limFoco, lr=S.ajustes.limRatos;
+  const focoDe=S.mesa.foco.filter(x=>IX[x]), ratDe=S.mesa.ratos.filter(x=>IX[x]);
+  const lineaFoco = focoDe[0]?IX[focoDe[0]]:null;
+  let avisos='';
+  if(lineaFoco && lineaFoco.l.id===l.id && ei>lineaFoco.ei) avisos+=`<div class="aviso"><b>Esto es de una etapa posterior.</b> Tu foco en ${esc(l.nombre)} está en «${esc(lineaFoco.e.nombre)}» y este libro es de «${esc(IX[id].e.nombre)}».</div>`;
+  hoja(`<div class="eyebrow">Poner en la mesa</div><h2>${esc(b.titulo)}</h2><div class="muted">${esc(b.autor)}</div>${avisos}
+    <div class="opciones">
+      <label class="opcion"><input type="radio" name="hueco" value="foco"><div><div class="tit">En el foco</div><div class="sub">${focoDe.length}/${lf} ocupados · lo que estudias en serio</div></div></label>
+      <label class="opcion"><input type="radio" name="hueco" value="ratos" checked><div><div class="tit">Para ratos muertos</div><div class="sub">${ratDe.length}/${lr} ocupados · lectura sin presión</div></div></label>
+    </div>
+    <div id="sale"></div>
+    <div class="acciones"><button class="btn sec" data-act="cerrar">Cancelar</button><button class="btn" data-act="confirmarMesa" data-id="${id}">Poner en la mesa</button></div>`,
+  v=>{ const pinta=()=>{ const h=v.querySelector('input[name=hueco]:checked').value; v.querySelector('#sale').innerHTML=bloqueSale(h,id); };
+       v.querySelectorAll('input[name=hueco]').forEach(r=>r.addEventListener('change',pinta)); pinta(); });
+}
+function bloqueSale(hueco,id){
+  const lista=S.mesa[hueco].filter(x=>IX[x]), lim=hueco==='foco'?S.ajustes.limFoco:S.ajustes.limRatos;
+  if(lista.length<lim) return '';
+  const opts=lista.map((x,i)=>{ const s=sesDe(x), u=prog(x).hechas.length, ult=s.at(-1);
+    return `<label class="opcion"><input type="radio" name="sale" value="${x}" ${i===0?'checked':''}><div><div class="tit">${esc(IX[x].b.autor)} · ${esc(IX[x].b.titulo)}</div><div class="sub">${s.length} ${s.length===1?'sesión':'sesiones'} · ${fmtMin(minDe(x))} · ${u} ${u===1?'unidad':'unidades'}${ult?' · última '+haceDias(ult.ini):''}</div></div></label>`; }).join('');
+  return `<div class="aviso" style="margin-top:16px"><b>La mesa está llena.</b> Para que entre uno, sale otro. Mira lo que llevas antes de decidir.</div>
+    <div class="opciones">${opts}</div>
+    <div class="campo"><label>Dónde dejas el que sale</label><input id="fMarcaSale" placeholder="Para retomarlo sin pensar"></div>
+    ${hueco==='foco'?`<div class="campo"><label>¿Por qué cambias de foco? <span class="dim">· obligatorio, queda en el cuaderno</span></label><textarea id="fMotivo" placeholder="Ej.: Cutkosky me pide Fulton para el cap. 19"></textarea></div>`:''}`;
+}
+function confirmarMesa(id){
+  const v=$('#velo'); const hueco=v.querySelector('input[name=hueco]:checked').value;
+  const lim=hueco==='foco'?S.ajustes.limFoco:S.ajustes.limRatos;
+  S.mesa.foco=S.mesa.foco.filter(x=>IX[x]); S.mesa.ratos=S.mesa.ratos.filter(x=>IX[x]);
+  if(S.mesa[hueco].length>=lim){
+    const sale=v.querySelector('input[name=sale]:checked')?.value;
+    if(!sale) return;
+    if(hueco==='foco'){
+      const m=(v.querySelector('#fMotivo')?.value||'').trim();
+      if(m.length<8){ toast('Escribe en una frase por qué cambias de foco'); v.querySelector('#fMotivo')?.focus(); return; }
+      S.cambios.push({t:Date.now(), sale, entra:id, motivo:m});
+    }
+    const ms=v.querySelector('#fMarcaSale').value.trim(); const ps=prog(sale);
+    if(ms) ps.marca=ms; ps.aparcado=true;
+    S.mesa[hueco]=S.mesa[hueco].filter(x=>x!==sale);
+  }
+  S.mesa.foco=S.mesa.foco.filter(x=>x!==id); S.mesa.ratos=S.mesa.ratos.filter(x=>x!==id);
+  S.mesa[hueco].push(id); prog(id).aparcado=false;
+  guardar(); cerrarHoja(); render(); toast('En la mesa: '+IX[id].b.autor);
+}
+function aparcar(id){
+  const p=prog(id);
+  hoja(`<div class="eyebrow">Aparcar</div><h2>${esc(IX[id].b.titulo)}</h2>
+    <p class="muted" style="font-size:.9rem">Sale de la mesa y vuelve a la estantería. Tu progreso y tus notas se quedan.</p>
+    <div class="campo"><label>Dónde lo dejas</label><input id="fMarcaAp" value="${esc(p.marca)}" placeholder="Para retomarlo sin pensar"></div>
+    <div class="acciones"><button class="btn sec" data-act="cerrar">Cancelar</button><button class="btn" data-act="confirmarAparcar" data-id="${id}">Aparcar</button></div>`);
+}
+
+function editarU(id){
+  const b=IX[id].b;
+  const txt=b.unidades.map(u=>u.t+(u.p?' | '+u.p:'')).join('\n');
+  hoja(`<div class="eyebrow">Índice</div><h2>${esc(b.titulo)}</h2>
+    <p class="pista">Una unidad por línea. Si quieres, añade la página tras una barra: <span class="num">2.3 Finite maps | 40</span>. Puedes usar capítulos o secciones, lo que te motive más.</p>
+    <div class="campo"><textarea id="fU2" class="mono">${esc(txt)}</textarea></div>
+    <p class="pista">Si cambias el orden, las unidades marcadas se recolocan por su título.</p>
+    <div class="acciones"><button class="btn sec" data-act="ficha" data-id="${id}">Volver</button><button class="btn" data-act="guardarU" data-id="${id}">Guardar índice</button></div>`);
+}
+function guardarU(id){
+  const b=IX[id].b, p=prog(id);
+  const viejos=p.hechas.map(i=>b.unidades[i]?.t).filter(Boolean);
+  b.unidades=$('#fU2').value.split('\n').map(x=>x.trim()).filter(Boolean).map(x=>{ const [t,pg]=x.split('|').map(s=>s.trim()); const n=parseInt(pg,10); return n?{t,p:n}:{t}; });
+  p.hechas=b.unidades.map((u,i)=>viejos.includes(u.t)?i:-1).filter(i=>i>=0);
+  guardar(); ficha(id); render();
+}
+
+/* ---------- ajustes, ruta, copias ---------- */
+function ajustes(){
+  const a=S.ajustes;
+  hoja(`<h2>Ajustes</h2>
+    <div class="campo"><label>Meta semanal (minutos)</label><input id="aMeta" type="number" inputmode="numeric" value="${a.meta}"></div>
+    <p class="pista">La constancia se mide por semanas, no por días: una semana floja no rompe nada, y cuidar de otros también cuenta como vida.</p>
+    <div class="dos"><div class="campo"><label>Huecos de foco</label><input id="aLf" type="number" min="1" max="4" value="${a.limFoco}"></div>
+    <div class="campo"><label>Huecos de ratos muertos</label><input id="aLr" type="number" min="0" max="6" value="${a.limRatos}"></div></div>
+    <div class="acciones"><button class="btn" data-act="guardarAjustes">Guardar</button></div>
+    <div class="sep"></div>
+    <div class="eyebrow">Ruta</div>
+    <p class="pista">Sube una ruta en JSON (archivo o pegada). Se conserva todo tu progreso de los libros que mantengan su identificador.</p>
+    <div class="fila" style="margin-top:10px"><label class="btn sec peq">Subir archivo<input type="file" accept=".json,application/json" hidden data-act="subirRuta"></label>
+      <button class="btn sec peq" data-act="pegarRuta">Pegar texto</button><button class="btn sec peq" data-act="bajarRuta">Descargar ruta actual</button></div>
+    <div class="sep"></div>
+    <div class="eyebrow">Copia de seguridad</div>
+    <p class="pista">Todo vive en este móvil. Si borras los datos del navegador, se pierde. Descarga una copia de vez en cuando${S.ultimaCopia?` (última: ${new Date(S.ultimaCopia).toLocaleDateString('es-ES')})`:' (aún ninguna)'}.</p>
+    <div class="fila" style="margin-top:10px"><button class="btn sec peq" data-act="bajarCopia">Descargar copia</button><label class="btn sec peq">Restaurar copia<input type="file" accept=".json,application/json" hidden data-act="subirCopia"></label></div>
+    <div class="sep"></div>
+    <div class="fila"><button class="btn peligro peq" data-act="reiniciar">Empezar de cero</button></div>
+    <p class="pista" style="margin-top:18px">© Andrés Asensio · La mesa v1</p>`);
+}
+function bajar(nombre, obj){
+  const b=new Blob([JSON.stringify(obj,null,1)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download=nombre; document.body.append(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500);
+}
+function normalizarRuta(j){
+  if(!j || !Array.isArray(j.lineas)) throw new Error('Falta la lista "lineas"');
+  const ids=new Set();
+  j.lineas.forEach((l,li)=>{
+    l.id=l.id||'linea'+li; l.nombre=l.nombre||'Línea '+(li+1); l.color=l.color||['#2f4f86','#8c3a2b','#3b6a4c','#a3761b','#5e5476'][li%5];
+    if(!Array.isArray(l.etapas)) throw new Error(`La línea "${l.nombre}" no tiene "etapas"`);
+    l.etapas.forEach((e,ei)=>{ e.nombre=e.nombre||'Etapa '+(ei+1); e.libros=(e.libros||[]).map(b=>{
+      if(!b.titulo) throw new Error('Hay un libro sin "titulo"');
+      b.id=b.id||b.titulo.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+      if(ids.has(b.id)) throw new Error('Identificador repetido: '+b.id); ids.add(b.id);
+      b.autor=b.autor||''; b.estado=b.estado||'en casa';
+      b.unidades=(b.unidades||[]).map(u=> typeof u==='string' ? (()=>{ const [t,p]=u.split('|').map(s=>s.trim()); const n=parseInt(p,10); return n?{t,p:n}:{t}; })() : u);
+      return b; }); });
+  });
+  return j;
+}
+function aplicarRuta(texto){
+  let j; try{ j=normalizarRuta(JSON.parse(texto)); }catch(e){ toast('Ruta no válida: '+e.message); return; }
+  const usarMesa = j.mesa && confirm('La ruta trae su propia mesa (foco y ratos muertos). ¿Usarla? Si cancelas, se queda tu mesa actual.');
+  S.ruta={nombre:j.nombre||'Mi ruta', lineas:j.lineas};
+  IX=indice();
+  if(usarMesa) S.mesa={foco:(j.mesa.foco||[]).filter(x=>IX[x]), ratos:(j.mesa.ratos||[]).filter(x=>IX[x])};
+  else S.mesa={foco:S.mesa.foco.filter(x=>IX[x]), ratos:S.mesa.ratos.filter(x=>IX[x])};
+  guardar(); cerrarHoja(); render(); toast('Ruta cargada: '+Object.keys(IX).length+' libros');
+}
+
+/* ---------- delegación ---------- */
+document.addEventListener('click', e=>{
+  const t=e.target.closest('[data-tab],[data-act]'); if(!t) return;
+  if(t.dataset.tab){ vista=t.dataset.tab; cerrarHoja(); render(); window.scrollTo(0,0); return; }
+  const a=t.dataset.act, id=t.dataset.id;
+  if(['filtro','estado','marca','subirRuta','subirCopia'].includes(a)) return;
+  if(t.tagName==='INPUT' && t.type!=='button') return;
+  switch(a){
+    case 'ajustes': ajustes(); break;
+    case 'cerrar': cerrarHoja(); break;
+    case 'linea': lineaSel=id; render(); break;
+    case 'ficha': ficha(id); break;
+    case 'empezar': empezar(id); break;
+    case 'cronometro': { const u=$('#fU'); S.activa={libro:id, unidad:u?parseInt(u.value,10):-1, ini:Date.now()}; guardar(); cerrarHoja(); render(); toast('Cronómetro en marcha. Puedes cerrar la app: sigue contando.'); break; }
+    case 'manual': { const u=$('#fU'); registrar(id, u?parseInt(u.value,10):-1, ''); break; }
+    case 'terminar': { const a2=S.activa; registrar(a2.libro, a2.unidad, Math.max(1,Math.round((Date.now()-a2.ini)/60000))); break; }
+    case 'descartar': if(confirm('¿Descartar esta sesión sin guardarla?')){ S.activa=null; guardar(); cerrarHoja(); render(); } break;
+    case 'guardarSes': guardarSes(id); break;
+    case 'toggleU': { const p=prog(id), i=+t.dataset.i; p.hechas=p.hechas.includes(i)?p.hechas.filter(x=>x!==i):[...p.hechas,i]; guardar(); t.classList.toggle('hecha'); render(); break; }
+    case 'aMesa': aMesa(id); break;
+    case 'confirmarMesa': confirmarMesa(id); break;
+    case 'aparcar': aparcar(id); break;
+    case 'confirmarAparcar': { const p=prog(id); p.marca=$('#fMarcaAp').value.trim(); p.aparcado=true; S.mesa.foco=S.mesa.foco.filter(x=>x!==id); S.mesa.ratos=S.mesa.ratos.filter(x=>x!==id); guardar(); cerrarHoja(); render(); toast('Aparcado. Te espera en la estantería.'); break; }
+    case 'terminarLibro': if(confirm('¿Das este libro por terminado? Sale de la mesa y gana su banda dorada.')){ const p=prog(id); p.terminado=Date.now(); S.mesa.foco=S.mesa.foco.filter(x=>x!==id); S.mesa.ratos=S.mesa.ratos.filter(x=>x!==id); guardar(); cerrarHoja(); render(); toast('Terminado. Enhorabuena.'); } break;
+    case 'reabrir': delete prog(id).terminado; guardar(); ficha(id); render(); break;
+    case 'editarU': editarU(id); break;
+    case 'guardarU': guardarU(id); break;
+    case 'borrarSes': if(confirm('¿Borrar esta sesión del cuaderno?')){ S.sesiones=S.sesiones.filter(s=>s.id!==id); guardar(); render(); } break;
+    case 'guardarAjustes': { S.ajustes.meta=Math.max(10,parseInt($('#aMeta').value,10)||240); S.ajustes.limFoco=Math.max(1,Math.min(4,parseInt($('#aLf').value,10)||2)); S.ajustes.limRatos=Math.max(0,Math.min(6,parseInt($('#aLr').value,10)||0)); guardar(); cerrarHoja(); render(); toast('Ajustes guardados'); break; }
+    case 'pegarRuta': hoja(`<h2>Pegar ruta</h2><p class="pista">Pega aquí el JSON de la ruta.</p><div class="campo"><textarea id="fRuta" class="mono" placeholder='{"nombre":"Mi ruta","lineas":[...]}'></textarea></div><div class="acciones"><button class="btn sec" data-act="ajustes">Volver</button><button class="btn" data-act="aplicarPegada">Cargar</button></div>`); break;
+    case 'aplicarPegada': aplicarRuta($('#fRuta').value); break;
+    case 'bajarRuta': bajar('ruta.json', {nombre:S.ruta.nombre, lineas:S.ruta.lineas, mesa:S.mesa}); break;
+    case 'bajarCopia': S.ultimaCopia=Date.now(); guardar(); bajar('la-mesa-copia-'+diaClave(Date.now())+'.json', S); toast('Copia descargada'); break;
+    case 'reiniciar': if(confirm('Se borrarán todas tus sesiones y tu progreso. ¿Seguro?') && confirm('De verdad: esto no se puede deshacer. ¿Seguimos?')){ S=nuevo(); guardar(); cerrarHoja(); render(); } break;
+  }
+});
+document.addEventListener('change', e=>{
+  const t=e.target, a=t.dataset.act, id=t.dataset.id;
+  if(a==='filtro'){ filtroCuad=t.value; render(); }
+  if(a==='estado'){ IX[id].b.estado=t.value; guardar(); render(); ficha(id); }
+  if(a==='marca'){ prog(id).marca=t.value.trim(); guardar(); render(); }
+  if(a==='subirRuta' || a==='subirCopia'){
+    const f=t.files[0]; if(!f) return; const r=new FileReader();
+    r.onload=()=>{ if(a==='subirRuta') aplicarRuta(r.result); else {
+      try{ const j=JSON.parse(r.result); if(!j.ruta||!j.mesa||!Array.isArray(j.sesiones)) throw 0;
+        if(confirm('Se sustituirá todo lo que hay en este móvil por la copia ('+j.sesiones.length+' sesiones). ¿Seguir?')){ S=j; guardar(); cerrarHoja(); render(); toast('Copia restaurada'); } }
+      catch(err){ toast('Ese archivo no es una copia de La mesa'); } } };
+    r.readAsText(f);
+  }
+});
+document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) renderActiva(); });
+
+render();
+if('serviceWorker' in navigator && location.protocol==='https:') navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
