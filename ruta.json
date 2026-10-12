@@ -506,6 +506,16 @@
        "estado": "en casa",
        "unidades": [],
        "rol": "respaldo"
+      },
+      {
+       "id": "gelfand-manin",
+       "titulo": "Methods of Homological Algebra",
+       "autor": "Gelfand–Manin",
+       "estado": "en casa",
+       "unidades": [],
+       "nota": "Respaldo de Hartshorne cap. III (funtores derivados). Imprescindible más adelante para MWV (categorías derivadas y trianguladas).",
+       "rol": "respaldo",
+       "respaldoDe": "hartshorne"
       }
      ]
     },
@@ -604,13 +614,6 @@
     {
      "nombre": "Fase 6 · Tesis",
      "libros": [
-      {
-       "id": "gelfand-manin",
-       "titulo": "Methods of Homological Algebra",
-       "autor": "Gelfand–Manin",
-       "estado": "en casa",
-       "unidades": []
-      },
       {
        "id": "jardine",
        "titulo": "Generalized Etale Cohomology Theories",
