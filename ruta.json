@@ -729,11 +729,12 @@
        "nota": "Solo caps. 1–3 y 5."
       },
       {
-       "id": "lee-smooth",
-       "titulo": "Introduction to Smooth Manifolds",
-       "autor": "Lee",
+       "id": "postnikov-3",
+       "titulo": "Smooth Manifolds",
+       "autor": "Postnikov III",
        "estado": "en casa",
        "unidades": [],
+       "nota": "Variedades en tu estilo favorito; Wedhorn como alternativa por haces.",
        "rol": "respaldo",
        "respaldoDe": "mcduff-salamon"
       }
