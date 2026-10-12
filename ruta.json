@@ -479,52 +479,6 @@
        "nota": "Solo cuando Cutkosky dé algo por sabido.",
        "rol": "respaldo",
        "respaldoDe": "cutkosky"
-      },
-      {
-       "id": "bruns-herzog",
-       "titulo": "Cohen-Macaulay Rings",
-       "autor": "Bruns–Herzog",
-       "estado": "en casa",
-       "unidades": [],
-       "nota": "Profundidad y anillos Cohen-Macaulay (Cutkosky 1.9–1.10).",
-       "rol": "respaldo",
-       "respaldoDe": "cutkosky"
-      },
-      {
-       "id": "serre-local",
-       "titulo": "Local Algebra",
-       "autor": "Serre",
-       "estado": "en casa",
-       "unidades": [],
-       "nota": "Multiplicidades, dimensión, anillos regulares.",
-       "rol": "respaldo",
-       "respaldoDe": "cutkosky"
-      },
-      {
-       "id": "aluffi",
-       "titulo": "Algebra: Chapter 0",
-       "autor": "Aluffi",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "reserva"
-      },
-      {
-       "id": "hulek",
-       "titulo": "Elementary Algebraic Geometry",
-       "autor": "Hulek",
-       "estado": "en casa",
-       "unidades": [],
-       "nota": "Entrada suave con ejemplos.",
-       "rol": "reserva"
-      },
-      {
-       "id": "clo",
-       "titulo": "Ideals, Varieties, and Algorithms",
-       "autor": "Cox–Little–O'Shea",
-       "estado": "en casa",
-       "unidades": [],
-       "nota": "Ejemplos computables, bases de Gröbner.",
-       "rol": "reserva"
       }
      ]
     },
@@ -552,59 +506,6 @@
        "estado": "en casa",
        "unidades": [],
        "rol": "respaldo"
-      },
-      {
-       "id": "harris-first",
-       "titulo": "Algebraic Geometry: A First Course",
-       "autor": "Harris",
-       "estado": "en casa",
-       "unidades": [],
-       "nota": "Ejemplos clásicos para acompañar a Hartshorne.",
-       "rol": "respaldo"
-      },
-      {
-       "id": "ueno-1",
-       "titulo": "Algebraic Geometry 1",
-       "autor": "Ueno",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "respaldo",
-       "respaldoDe": "hartshorne"
-      },
-      {
-       "id": "ueno-2",
-       "titulo": "Algebraic Geometry 2",
-       "autor": "Ueno",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "respaldo",
-       "respaldoDe": "hartshorne"
-      },
-      {
-       "id": "ueno-3",
-       "titulo": "Algebraic Geometry 3",
-       "autor": "Ueno",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "respaldo",
-       "respaldoDe": "hartshorne"
-      },
-      {
-       "id": "miranda",
-       "titulo": "Algebraic Curves and Riemann Surfaces",
-       "autor": "Miranda",
-       "estado": "en casa",
-       "unidades": [],
-       "nota": "Curvas: puente hacia Liu.",
-       "rol": "respaldo"
-      },
-      {
-       "id": "varolin",
-       "titulo": "Riemann Surfaces by Way of Complex Analytic Geometry",
-       "autor": "Varolin",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "reserva"
       },
       {
        "id": "gelfand-manin",
@@ -680,88 +581,6 @@
        "unidades": [],
        "nota": "Alturas: el lado diofántico de Arakelov.",
        "rol": "respaldo"
-      },
-      {
-       "id": "silverman-aec",
-       "titulo": "The Arithmetic of Elliptic Curves",
-       "autor": "Silverman",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "respaldo"
-      },
-      {
-       "id": "lorenzini",
-       "titulo": "An Invitation to Arithmetic Geometry",
-       "autor": "Lorenzini",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "respaldo",
-       "respaldoDe": "liu"
-      },
-      {
-       "id": "marcus",
-       "titulo": "Number Fields",
-       "autor": "Marcus",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "respaldo",
-       "respaldoDe": "neukirch"
-      },
-      {
-       "id": "kato-1",
-       "titulo": "Number Theory 1",
-       "autor": "Kato et al.",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "reserva"
-      },
-      {
-       "id": "kato-2",
-       "titulo": "Number Theory 2",
-       "autor": "Kato et al.",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "reserva"
-      },
-      {
-       "id": "kurokawa-3",
-       "titulo": "Number Theory 3",
-       "autor": "Kurokawa et al.",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "reserva"
-      },
-      {
-       "id": "knapp",
-       "titulo": "Elliptic Curves",
-       "autor": "Knapp",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "reserva"
-      },
-      {
-       "id": "koblitz",
-       "titulo": "Introduction to Elliptic Curves and Modular Forms",
-       "autor": "Koblitz",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "reserva"
-      },
-      {
-       "id": "diamond-shurman",
-       "titulo": "A First Course in Modular Forms",
-       "autor": "Diamond–Shurman",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "reserva"
-      },
-      {
-       "id": "lozano-robledo",
-       "titulo": "Number Theory and Geometry",
-       "autor": "Lozano-Robledo",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "reserva"
       }
      ]
     },
@@ -817,22 +636,6 @@
        "autor": "Mazza–Voevodsky–Weibel",
        "estado": "en casa",
        "unidades": []
-      },
-      {
-       "id": "magurn",
-       "titulo": "An Algebraic Introduction to K-Theory",
-       "autor": "Magurn",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "reserva"
-      },
-      {
-       "id": "rosenberg",
-       "titulo": "Algebraic K-Theory and Its Applications",
-       "autor": "Rosenberg",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "reserva"
       },
       {
        "id": "peyre-remond",
@@ -933,46 +736,6 @@
        "unidades": [],
        "rol": "respaldo",
        "respaldoDe": "mcduff-salamon"
-      },
-      {
-       "id": "lee-mdg",
-       "titulo": "Manifolds and Differential Geometry",
-       "autor": "Lee",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "reserva"
-      },
-      {
-       "id": "michor",
-       "titulo": "Topics in Differential Geometry",
-       "autor": "Michor",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "reserva"
-      },
-      {
-       "id": "mishchenko-fomenko",
-       "titulo": "A Course of Differential Geometry and Topology",
-       "autor": "Mishchenko–Fomenko",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "reserva"
-      },
-      {
-       "id": "morita",
-       "titulo": "Geometry of Characteristic Classes",
-       "autor": "Morita",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "reserva"
-      },
-      {
-       "id": "dufour-zung",
-       "titulo": "Poisson Structures and Their Normal Forms",
-       "autor": "Dufour–Zung",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "reserva"
       }
      ]
     },
@@ -1125,38 +888,6 @@
        "unidades": [],
        "nota": "Variedades tóricas: la base de la simetría espejo.",
        "rol": "respaldo"
-      },
-      {
-       "id": "fulton-toric",
-       "titulo": "Introduction to Toric Varieties",
-       "autor": "Fulton",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "respaldo"
-      },
-      {
-       "id": "clay-4",
-       "titulo": "Dirichlet Branes and Mirror Symmetry",
-       "autor": "Douglas et al. (Clay 4)",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "reserva"
-      },
-      {
-       "id": "heunen-vicary",
-       "titulo": "Categories for Quantum Theory",
-       "autor": "Heunen–Vicary",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "reserva"
-      },
-      {
-       "id": "mukai",
-       "titulo": "An Introduction to Invariants and Moduli",
-       "autor": "Mukai",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "reserva"
       }
      ]
     }
@@ -1371,15 +1102,6 @@
        "respaldoDe": "hovey"
       },
       {
-       "id": "fomenko-fuchs",
-       "titulo": "Homotopical Topology",
-       "autor": "Fomenko–Fuchs",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "respaldo",
-       "respaldoDe": "hovey"
-      },
-      {
        "id": "mccleary",
        "titulo": "A User's Guide to Spectral Sequences",
        "autor": "McCleary",
@@ -1387,46 +1109,6 @@
        "unidades": [],
        "rol": "respaldo",
        "respaldoDe": "hovey"
-      },
-      {
-       "id": "kammeyer",
-       "titulo": "Introduction to Algebraic Topology",
-       "autor": "Kammeyer",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "reserva"
-      },
-      {
-       "id": "rotman-at",
-       "titulo": "An Introduction to Algebraic Topology",
-       "autor": "Rotman",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "reserva"
-      },
-      {
-       "id": "laures-szymik",
-       "titulo": "A Basic Course in Topology",
-       "autor": "Laures–Szymik",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "reserva"
-      },
-      {
-       "id": "land",
-       "titulo": "Introduction to Infinity-Categories",
-       "autor": "Land",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "reserva"
-      },
-      {
-       "id": "heuts-moerdijk",
-       "titulo": "Simplicial and Dendroidal Homotopy Theory",
-       "autor": "Heuts–Moerdijk",
-       "estado": "en casa",
-       "unidades": [],
-       "rol": "reserva"
       },
       {
        "id": "ravenel",
@@ -1454,15 +1136,6 @@
        "autor": "Levine–Morel",
        "estado": "pedido",
        "unidades": []
-      },
-      {
-       "id": "tmf",
-       "titulo": "Topological Modular Forms",
-       "autor": "Douglas et al. (eds.)",
-       "estado": "en casa",
-       "unidades": [],
-       "nota": "El horizonte: el libro más difícil de la biblioteca.",
-       "rol": "reserva"
       }
      ]
     }
