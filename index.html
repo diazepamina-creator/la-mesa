@@ -266,7 +266,9 @@ const PRINCIPIOS = [
 
 /* ---------- estado ---------- */
 let S = cargar();
-let vista = 'hoy', lineaSel = null, filtroCuad = '';
+let vista = 'hoy', lineaSel = null, filtroCuad = '', verTodo = false;
+function visible(id){ const x=IX[id]; if(!x) return false; return verTodo || !!enMesa(id) || !!(x.b.respaldoDe && enMesa(x.b.respaldoDe)) || !!prog(id).terminado; }
+function botonTodo(){ const ocultos=Object.keys(IX).filter(id=>!visible(id)).length; return verTodo ? `<div style="text-align:center;margin:26px 0 8px"><button class="btn sec peq" data-act="verTodo">Volver a la mesa</button></div>` : `<div style="text-align:center;margin:26px 0 8px"><p class="pista">${ocultos} libros esperan en la estantería, fuera de la vista.</p><button class="btn sec peq" data-act="verTodo">Ver toda la ruta</button></div>`; }
 function nuevo(){
   return {v:1, ruta:JSON.parse(JSON.stringify(SEED.ruta)), mesa:JSON.parse(JSON.stringify(SEED.mesa)),
     progreso:{}, sesiones:[], cambios:[], activa:null, ajustes:{meta:240, limFoco:2, limRatos:3, congelada:Date.now()+30*864e5}, creado:Date.now()};
@@ -438,23 +440,25 @@ function etapaActual(l){
   return aqui;
 }
 function vRuta(){
-  if(!lineaSel || !S.ruta.lineas.find(l=>l.id===lineaSel)) lineaSel=S.ruta.lineas[0]?.id;
-  const l=S.ruta.lineas.find(x=>x.id===lineaSel);
+  const lineasVis=S.ruta.lineas.filter(x=>x.etapas.some(e=>e.libros.some(b=>visible(b.id))));
+  if(!lineaSel || !lineasVis.find(l=>l.id===lineaSel)) lineaSel=lineasVis[0]?.id;
+  const l=lineasVis.find(x=>x.id===lineaSel);
   if(!l) return `<div class="card vacio" style="margin-top:20px">No hay ruta cargada. Súbela desde Ajustes.</div>`;
   const aqui=etapaActual(l);
-  const chips=S.ruta.lineas.map(x=>`<button class="${x.id===lineaSel?'on':''}" data-act="linea" data-id="${x.id}"><i style="background:${x.color}"></i>${esc(x.nombre)}</button>`).join('');
+  const chips=lineasVis.map(x=>`<button class="${x.id===lineaSel?'on':''}" data-act="linea" data-id="${x.id}"><i style="background:${x.color}"></i>${esc(x.nombre)}</button>`).join('');
   const etapas=l.etapas.map((e,i)=>{
     const todos=e.libros.filter(b=>!b.rol);
     const hecha = todos.length && todos.every(b=>prog(b.id).terminado);
     const cls = hecha?'hecha': i===aqui?'aqui':'';
-    const libros=e.libros.map(b=>itemLibro(b,l, aqui>=0 && i>aqui)).join('');
+    const vis=e.libros.filter(b=>visible(b.id)), ocultos=e.libros.length-vis.length;
+    const libros=vis.map(b=>itemLibro(b,l, aqui>=0 && i>aqui)).join('') + (ocultos&&!verTodo?`<div class="pista" style="padding:2px 4px">${vis.length?'+ ':''}${ocultos} ${ocultos===1?'libro guardado':'libros guardados'}</div>`:'');
     return `<div class="etapa ${cls}" style="--c:${l.color}"><div class="nodo"></div>
       <h3>${esc(e.nombre)} ${i===aqui?'<span class="aquitag">estás aquí</span>':''}</h3>
       <div class="lista">${libros}</div></div>`;
   }).join('');
   return `<div class="lineas">${chips}</div>
     <div class="cabl"><div class="eyebrow">${esc(l.sub||'')}</div><h1>${esc(l.nombre)}</h1></div>
-    <div class="etapas">${etapas}</div>`;
+    <div class="etapas">${etapas}</div>${botonTodo()}`;
 }
 function anillo(id,color){
   const p=pct(id), r=15, c=2*Math.PI*r;
@@ -476,18 +480,19 @@ function itemLibro(b,l,futuro){
 
 function vBiblio(){
   const todos=Object.values(IX);
-  const casa=todos.filter(x=>['en casa','pdf'].includes(x.b.estado||'en casa')).length;
-  const ped=todos.filter(x=>x.b.estado==='pedido').length;
+  const casa=todos.filter(x=>enMesa(x.b.id)).length;
+  const ped=todos.filter(x=>!visible(x.b.id)).length;
   const term=todos.filter(x=>prog(x.b.id).terminado).length;
   const est=S.ruta.lineas.map(l=>{
-    const libs=l.etapas.flatMap(e=>e.libros);
+    const libs=l.etapas.flatMap(e=>e.libros).filter(b=>visible(b.id));
+    if(!libs.length) return '';
     return `<div class="estante"><h3><i style="background:${l.color}"></i>${esc(l.nombre)} <span class="dim" style="font-family:var(--sans);font-weight:400;font-size:.78rem">${libs.length}</span></h3>
     ${baldas(libs,l)}</div>`;
   }).join('');
-  return `<div class="resumenb"><div class="card"><b>${casa}</b><span>en casa</span></div><div class="card"><b>${ped}</b><span>pedidos</span></div><div class="card"><b>${term}</b><span>terminados</span></div></div>
+  return `<div class="resumenb"><div class="card"><b>${casa}</b><span>en la mesa</span></div><div class="card"><b>${verTodo?Object.keys(IX).length:ped}</b><span>${verTodo?'en la ruta':'guardados'}</span></div><div class="card"><b>${term}</b><span>terminados</span></div></div>
   ${est}
   <div class="leyenda"><span><i style="background:var(--tinta2)"></i>en casa</span><span><i style="background:repeating-linear-gradient(135deg,var(--tinta2) 0 3px,var(--tinta3) 3px 6px)"></i>pedido</span><span><i style="border:1.5px dashed var(--tinta3)"></i>por conseguir</span><span><i style="background:var(--tinta2);border-top:5px solid var(--laton)"></i>en la mesa</span></div>
-  <p class="pista" style="margin-top:12px">La parte clara de cada lomo es lo que llevas leído. Toca un lomo para abrir su ficha.</p>`;
+  <p class="pista" style="margin-top:12px">La parte clara de cada lomo es lo que llevas leído. Toca un lomo para abrir su ficha.</p>${botonTodo()}`;
 }
 function medidas(b){ const h=hash(b.id), n=b.unidades.length; return {h, alto:150+(h%46), ancho:Math.max(30,Math.min(46,26+(n?Math.sqrt(n)*2:6)+(h>>3)%6))}; }
 function baldas(libs,l){
@@ -754,7 +759,7 @@ function ajustes(){
     <div class="fila" style="margin-top:10px"><button class="btn sec peq" data-act="bajarCopia">Descargar copia</button><label class="btn sec peq">Restaurar copia<input type="file" accept=".json,application/json" hidden data-act="subirCopia"></label></div>
     <div class="sep"></div>
     <div class="fila"><button class="btn peligro peq" data-act="reiniciar">Empezar de cero</button></div>
-    <p class="pista" style="margin-top:18px">© Andrés Asensio · La mesa v1.3</p>`);
+    <p class="pista" style="margin-top:18px">© Andrés Asensio · La mesa v1.4</p>`);
 }
 function bajar(nombre, obj){
   const b=new Blob([JSON.stringify(obj,null,1)],{type:'application/json'});
@@ -797,6 +802,7 @@ document.addEventListener('click', e=>{
     case 'ajustes': ajustes(); break;
     case 'cerrar': cerrarHoja(); break;
     case 'linea': lineaSel=id; render(); break;
+    case 'verTodo': verTodo=!verTodo; render(); window.scrollTo(0,0); break;
     case 'ficha': ficha(id); break;
     case 'empezar': empezar(id); break;
     case 'cronometro': { const u=$('#fU'); S.activa={libro:id, unidad:u?parseInt(u.value,10):-1, ini:Date.now()}; guardar(); cerrarHoja(); render(); toast('Cronómetro en marcha. Puedes cerrar la app: sigue contando.'); break; }
