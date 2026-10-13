@@ -671,37 +671,279 @@
        "estado": "en casa",
        "unidades": [
         {
-         "t": "1 Experimental facts"
+         "t": "1 Principles of relativity and determinacy",
+         "p": 3
         },
         {
-         "t": "2 Investigation of the equations of motion"
+         "t": "2 The galilean group and Newton's equations",
+         "p": 4
         },
         {
-         "t": "3 Variational principles"
+         "t": "3 Examples of mechanical systems",
+         "p": 11
         },
         {
-         "t": "4 Lagrangian mechanics on manifolds"
+         "t": "4 Systems with one degree of freedom",
+         "p": 15
         },
         {
-         "t": "5 Oscillations"
+         "t": "5 Systems with two degrees of freedom",
+         "p": 22
         },
         {
-         "t": "6 Rigid bodies"
+         "t": "6 Conservative force fields",
+         "p": 28
         },
         {
-         "t": "7 Differential forms"
+         "t": "7 Angular momentum",
+         "p": 30
         },
         {
-         "t": "8 Symplectic manifolds"
+         "t": "8 Motion in a central field",
+         "p": 33
         },
         {
-         "t": "9 Canonical formalism"
+         "t": "9 Motion of a point in three-space",
+         "p": 42
         },
         {
-         "t": "10 Introduction to perturbation theory"
+         "t": "10 Motions of a system of n points",
+         "p": 44
+        },
+        {
+         "t": "11 The method of similarity",
+         "p": 50
+        },
+        {
+         "t": "12 Calculus of variations",
+         "p": 55
+        },
+        {
+         "t": "13 Lagrange's equations",
+         "p": 59
+        },
+        {
+         "t": "14 Legendre transformations",
+         "p": 61
+        },
+        {
+         "t": "15 Hamilton's equations",
+         "p": 65
+        },
+        {
+         "t": "16 Liouville's theorem",
+         "p": 68
+        },
+        {
+         "t": "17 Holonomic constraints",
+         "p": 75
+        },
+        {
+         "t": "18 Differentiable manifolds",
+         "p": 77
+        },
+        {
+         "t": "19 Lagrangian dynamical systems",
+         "p": 83
+        },
+        {
+         "t": "20 E. Noether's theorem",
+         "p": 88
+        },
+        {
+         "t": "21 D'Alembert's principle",
+         "p": 91
+        },
+        {
+         "t": "22 Linearization",
+         "p": 98
+        },
+        {
+         "t": "23 Small oscillations",
+         "p": 103
+        },
+        {
+         "t": "24 Behavior of characteristic frequencies",
+         "p": 110
+        },
+        {
+         "t": "25 Parametric resonance",
+         "p": 113
+        },
+        {
+         "t": "26 Motion in a moving coordinate system",
+         "p": 123
+        },
+        {
+         "t": "27 Inertial forces and the Coriolis force",
+         "p": 129
+        },
+        {
+         "t": "28 Rigid bodies",
+         "p": 133
+        },
+        {
+         "t": "29 Euler's equations. Poinsot",
+         "p": 142
+        },
+        {
+         "t": "30 Lagrange's top",
+         "p": 148
+        },
+        {
+         "t": "31 Sleeping tops and fast tops",
+         "p": 154
+        },
+        {
+         "t": "32 Exterior forms",
+         "p": 163
+        },
+        {
+         "t": "33 Exterior multiplication",
+         "p": 170
+        },
+        {
+         "t": "34 Differential forms",
+         "p": 174
+        },
+        {
+         "t": "35 Integration of differential forms",
+         "p": 181
+        },
+        {
+         "t": "36 Exterior differentiation",
+         "p": 188
+        },
+        {
+         "t": "37 Symplectic structures on manifolds",
+         "p": 201
+        },
+        {
+         "t": "38 Hamiltonian phase flows and integral invariants",
+         "p": 204
+        },
+        {
+         "t": "39 The Lie algebra of vector fields",
+         "p": 208
+        },
+        {
+         "t": "40 The Lie algebra of hamiltonian functions",
+         "p": 214
+        },
+        {
+         "t": "41 Symplectic geometry",
+         "p": 219
+        },
+        {
+         "t": "42 Parametric resonance, many degrees of freedom",
+         "p": 225
+        },
+        {
+         "t": "43 A symplectic atlas",
+         "p": 229
+        },
+        {
+         "t": "44 The integral invariant of Poincaré-Cartan",
+         "p": 233
+        },
+        {
+         "t": "45 Applications of the Poincaré-Cartan invariant",
+         "p": 240
+        },
+        {
+         "t": "46 Huygens' principle",
+         "p": 248
+        },
+        {
+         "t": "47 The Hamilton-Jacobi method",
+         "p": 258
+        },
+        {
+         "t": "48 Generating functions",
+         "p": 266
+        },
+        {
+         "t": "49 Integrable systems",
+         "p": 271
+        },
+        {
+         "t": "50 Action-angle variables",
+         "p": 279
+        },
+        {
+         "t": "51 Averaging",
+         "p": 285
+        },
+        {
+         "t": "52 Averaging of perturbations",
+         "p": 291
+        },
+        {
+         "t": "Ap. 1 Riemannian curvature",
+         "p": 301
+        },
+        {
+         "t": "Ap. 2 Left-invariant metrics and ideal fluids",
+         "p": 318
+        },
+        {
+         "t": "Ap. 3 Symplectic structures on algebraic manifolds",
+         "p": 343
+        },
+        {
+         "t": "Ap. 4 Contact structures",
+         "p": 349
+        },
+        {
+         "t": "Ap. 5 Dynamical systems with symmetries",
+         "p": 371
+        },
+        {
+         "t": "Ap. 6 Normal forms of quadratic hamiltonians",
+         "p": 381
+        },
+        {
+         "t": "Ap. 7 Normal forms near stationary points",
+         "p": 385
+        },
+        {
+         "t": "Ap. 8 KAM: Kolmogorov's theorem",
+         "p": 399
+        },
+        {
+         "t": "Ap. 9 Poincaré's geometric theorem",
+         "p": 416
+        },
+        {
+         "t": "Ap. 10 Multiplicities of characteristic frequencies",
+         "p": 425
+        },
+        {
+         "t": "Ap. 11 Short wave asymptotics",
+         "p": 438
+        },
+        {
+         "t": "Ap. 12 Lagrangian singularities",
+         "p": 446
+        },
+        {
+         "t": "Ap. 13 The Korteweg-de Vries equation",
+         "p": 453
+        },
+        {
+         "t": "Ap. 14 Poisson structures",
+         "p": 456
+        },
+        {
+         "t": "Ap. 15 On elliptic coordinates",
+         "p": 469
+        },
+        {
+         "t": "Ap. 16 Singularities of ray systems",
+         "p": 480
         }
        ],
-       "nota": "Índice orientativo, escrito de memoria: revísalo con tu ejemplar (Editar unidades)."
+       "nota": "2.ª ed. Secciones 1–52 y apéndices 1–16, con página."
       }
      ]
     },
