@@ -1659,6 +1659,256 @@
    ]
   }
  ],
+ "puentes": [
+  {
+   "a": {
+    "libro": "cutkosky",
+    "u": [
+     "1.1",
+     "1.3",
+     "1.4"
+    ]
+   },
+   "b": {
+    "libro": "manin-esquemas",
+    "u": [
+     "1.1"
+    ]
+   }
+  },
+  {
+   "a": {
+    "libro": "cutkosky",
+    "u": [
+     "1.5",
+     "1.6"
+    ]
+   },
+   "b": {
+    "libro": "manin-esquemas",
+    "u": [
+     "1.7"
+    ]
+   }
+  },
+  {
+   "a": {
+    "libro": "cutkosky",
+    "u": [
+     "2.1"
+    ]
+   },
+   "b": {
+    "libro": "manin-esquemas",
+    "u": [
+     "1.2",
+     "1.4",
+     "1.8"
+    ]
+   }
+  },
+  {
+   "a": {
+    "libro": "cutkosky",
+    "u": [
+     "2.2"
+    ]
+   },
+   "b": {
+    "libro": "manin-esquemas",
+    "u": [
+     "1.3",
+     "1.5"
+    ]
+   }
+  },
+  {
+   "a": {
+    "libro": "cutkosky",
+    "u": [
+     "2.3",
+     "7.1",
+     "7.2"
+    ]
+   },
+   "b": {
+    "libro": "manin-esquemas",
+    "u": [
+     "1.6"
+    ]
+   }
+  },
+  {
+   "a": {
+    "libro": "cutkosky",
+    "u": [
+     "5.1",
+     "5.2"
+    ]
+   },
+   "b": {
+    "libro": "manin-esquemas",
+    "u": [
+     "1.9"
+    ]
+   }
+  },
+  {
+   "a": {
+    "libro": "cutkosky",
+    "u": [
+     "3.1",
+     "3.2"
+    ]
+   },
+   "b": {
+    "libro": "manin-esquemas",
+    "u": [
+     "2.4",
+     "2.5"
+    ]
+   }
+  },
+  {
+   "a": {
+    "libro": "cutkosky",
+    "u": [
+     "10.4"
+    ]
+   },
+   "b": {
+    "libro": "manin-esquemas",
+    "u": [
+     "1.11",
+     "2.14"
+    ]
+   }
+  },
+  {
+   "a": {
+    "libro": "cutkosky",
+    "u": [
+     "11.2"
+    ]
+   },
+   "b": {
+    "libro": "manin-esquemas",
+    "u": [
+     "2.1",
+     "2.2"
+    ]
+   }
+  },
+  {
+   "a": {
+    "libro": "cutkosky",
+    "u": [
+     "11.3",
+     "11.4",
+     "11.5"
+    ]
+   },
+   "b": {
+    "libro": "manin-esquemas",
+    "u": [
+     "2.6",
+     "2.11"
+    ]
+   }
+  },
+  {
+   "a": {
+    "libro": "cutkosky",
+    "u": [
+     "13.1",
+     "13.8",
+     "13.9"
+    ]
+   },
+   "b": {
+    "libro": "manin-esquemas",
+    "u": [
+     "2.7"
+    ]
+   }
+  },
+  {
+   "a": {
+    "libro": "cutkosky",
+    "u": [
+     "14.1",
+     "14.2"
+    ]
+   },
+   "b": {
+    "libro": "manin-esquemas",
+    "u": [
+     "1.12"
+    ]
+   }
+  },
+  {
+   "a": {
+    "libro": "cutkosky",
+    "u": [
+     "15.1",
+     "15.3",
+     "15.5"
+    ]
+   },
+   "b": {
+    "libro": "manin-esquemas",
+    "u": [
+     "2.3"
+    ]
+   }
+  },
+  {
+   "a": {
+    "libro": "cutkosky",
+    "u": [
+     "16"
+    ]
+   },
+   "b": {
+    "libro": "manin-esquemas",
+    "u": [
+     "2.12"
+    ]
+   }
+  },
+  {
+   "a": {
+    "libro": "cutkosky",
+    "u": [
+     "17.1",
+     "17.2",
+     "17.3"
+    ]
+   },
+   "b": {
+    "libro": "manin-esquemas",
+    "u": [
+     "2.8"
+    ]
+   }
+  },
+  {
+   "a": {
+    "libro": "cutkosky",
+    "u": [
+     "17.4"
+    ]
+   },
+   "b": {
+    "libro": "manin-esquemas",
+    "u": [
+     "2.9",
+     "2.10"
+    ]
+   }
+  }
+ ],
  "mesa": {
   "foco": [
    "cutkosky",
