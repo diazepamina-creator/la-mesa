@@ -462,13 +462,131 @@
        "estado": "en casa",
        "unidades": [
         {
-         "t": "1 Affine schemes"
+         "t": "1.1 Equations and Rings",
+         "p": 1
         },
         {
-         "t": "2 Sheaves, schemes and projective spaces"
+         "t": "1.2 Geometric Language: Points",
+         "p": 7
+        },
+        {
+         "t": "1.3 Functions on Spectra",
+         "p": 11
+        },
+        {
+         "t": "1.4 The Zariski Topology on Spec A",
+         "p": 16
+        },
+        {
+         "t": "1.5 Affine Schemes (preliminary definition)",
+         "p": 27
+        },
+        {
+         "t": "1.6 Topological properties of morphisms; maximal spectrum",
+         "p": 32
+        },
+        {
+         "t": "1.7 Closed Subschemes and Primary Decomposition",
+         "p": 41
+        },
+        {
+         "t": "1.8 Hilbert's Nullstellensatz",
+         "p": 49
+        },
+        {
+         "t": "1.9 Fiber Products",
+         "p": 52
+        },
+        {
+         "t": "1.10 Vector Bundles and Projective Modules",
+         "p": 57
+        },
+        {
+         "t": "1.11 The Normal Bundle and Regular Embeddings",
+         "p": 66
+        },
+        {
+         "t": "1.12 Differentials",
+         "p": 70
+        },
+        {
+         "t": "1.13 Digression: Serre's Problem and Seshadri's Theorem",
+         "p": 75
+        },
+        {
+         "t": "1.14 Digression: ζ-function of a Ring",
+         "p": 78
+        },
+        {
+         "t": "1.15 Affine Group Schemes",
+         "p": 84
+        },
+        {
+         "t": "1.16 Appendix: Categories. Representing Functors",
+         "p": 93
+        },
+        {
+         "t": "1.17 Solutions to Selected Problems of Chap. 1",
+         "p": 105
+        },
+        {
+         "t": "2.1 Basics on Sheaves",
+         "p": 107
+        },
+        {
+         "t": "2.2 The Structure Sheaf on Spec A",
+         "p": 113
+        },
+        {
+         "t": "2.3 Ringed Spaces: Schemes",
+         "p": 118
+        },
+        {
+         "t": "2.4 Projective Spectra",
+         "p": 125
+        },
+        {
+         "t": "2.5 Algebraic Invariants of Graded Rings",
+         "p": 130
+        },
+        {
+         "t": "2.6 Presheaves and Sheaves of Modules",
+         "p": 139
+        },
+        {
+         "t": "2.7 Invertible Sheaves and the Picard Group",
+         "p": 146
+        },
+        {
+         "t": "2.8 The Čech Cohomology",
+         "p": 153
+        },
+        {
+         "t": "2.9 Cohomology of the Projective Space",
+         "p": 162
+        },
+        {
+         "t": "2.10 Serre's Theorem",
+         "p": 168
+        },
+        {
+         "t": "2.11 Sheaves on Proj R and Graded Modules",
+         "p": 172
+        },
+        {
+         "t": "2.12 Applications to Hilbert Polynomials",
+         "p": 175
+        },
+        {
+         "t": "2.13 The Grothendieck Group: First Notions",
+         "p": 181
+        },
+        {
+         "t": "2.14 Resolutions and Smoothness",
+         "p": 187
         }
        ],
-       "nota": "Índice orientativo, escrito de memoria: revísalo con tu ejemplar (Editar unidades)."
+       "nota": "Índice de tu ejemplar, con página. En tándem con Cutkosky."
       },
       {
        "id": "eisenbud-ca",
