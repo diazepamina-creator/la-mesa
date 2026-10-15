@@ -1065,28 +1065,147 @@
        "estado": "en casa",
        "unidades": [
         {
-         "t": "0 Preliminaries"
+         "t": "Introducción",
+         "p": 1
         },
         {
-         "t": "1 Stable n-pointed curves"
+         "t": "0.1 Cross ratios",
+         "p": 5
         },
         {
-         "t": "2 Stable maps"
+         "t": "0.2 Definition of moduli space",
+         "p": 11
         },
         {
-         "t": "3 Enumerative geometry via stable maps"
+         "t": "1.1 n-pointed smooth rational curves",
+         "p": 21
         },
         {
-         "t": "4 Gromov-Witten invariants"
+         "t": "1.2 Stable n-pointed rational curves",
+         "p": 23
         },
         {
-         "t": "5 Quantum cohomology"
+         "t": "1.3 Stabilization, forgetting marks, contraction",
+         "p": 28
         },
         {
-         "t": "6 Applications and examples"
+         "t": "1.4 Sketch of the construction of M̄0,n",
+         "p": 32
+        },
+        {
+         "t": "1.5 The boundary",
+         "p": 34
+        },
+        {
+         "t": "1.6 Generalizations and references",
+         "p": 39
+        },
+        {
+         "t": "2.1 Maps P1 → Pr",
+         "p": 47
+        },
+        {
+         "t": "2.2 1-parameter families",
+         "p": 54
+        },
+        {
+         "t": "2.3 Kontsevich stable maps",
+         "p": 58
+        },
+        {
+         "t": "2.4 Idea of the construction of M̄0,n(Pr,d)",
+         "p": 60
+        },
+        {
+         "t": "2.5 Evaluation maps",
+         "p": 63
+        },
+        {
+         "t": "2.6 Forgetful maps",
+         "p": 65
+        },
+        {
+         "t": "2.7 The boundary",
+         "p": 69
+        },
+        {
+         "t": "2.8 Easy properties and examples",
+         "p": 71
+        },
+        {
+         "t": "2.9 Complete conics",
+         "p": 74
+        },
+        {
+         "t": "2.10 Generalizations and references",
+         "p": 78
+        },
+        {
+         "t": "3.1 Classical enumerative geometry",
+         "p": 91
+        },
+        {
+         "t": "3.2 Counting conics and rational cubics via stable maps",
+         "p": 95
+        },
+        {
+         "t": "3.3 Kontsevich's formula",
+         "p": 99
+        },
+        {
+         "t": "3.4 Transversality and enumerative significance",
+         "p": 100
+        },
+        {
+         "t": "3.5 Stable maps versus rational curves",
+         "p": 102
+        },
+        {
+         "t": "3.6 Generalizations and references",
+         "p": 106
+        },
+        {
+         "t": "4.1 Definition and enumerative interpretation",
+         "p": 111
+        },
+        {
+         "t": "4.2 Properties of Gromov-Witten invariants",
+         "p": 115
+        },
+        {
+         "t": "4.3 Recursion",
+         "p": 117
+        },
+        {
+         "t": "4.4 The reconstruction theorem",
+         "p": 120
+        },
+        {
+         "t": "4.5 Generalizations and references",
+         "p": 123
+        },
+        {
+         "t": "5.1 Quick primer on generating functions",
+         "p": 129
+        },
+        {
+         "t": "5.2 The Gromov-Witten potential and the quantum product",
+         "p": 132
+        },
+        {
+         "t": "5.3 Associativity",
+         "p": 136
+        },
+        {
+         "t": "5.4 Kontsevich's formula via quantum cohomology",
+         "p": 138
+        },
+        {
+         "t": "5.5 Generalizations and references",
+         "p": 141
         }
        ],
-       "nota": "Índice orientativo, escrito de memoria: revísalo con tu ejemplar (Editar unidades)."
+       "nota": "Índice de tu ejemplar, con página."
       }
      ]
     },
