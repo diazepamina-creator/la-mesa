@@ -597,6 +597,16 @@
        "nota": "Solo cuando Cutkosky dé algo por sabido.",
        "rol": "respaldo",
        "respaldoDe": "cutkosky"
+      },
+      {
+       "id": "harris-first",
+       "titulo": "Algebraic Geometry: A First Course",
+       "autor": "Harris",
+       "estado": "en casa",
+       "unidades": [],
+       "nota": "Ejemplos y geometría concreta para la mitad clásica de Cutkosky (caps. 2–10): Veronese, Segre, grassmannianas, explosiones, grado, tangente.",
+       "rol": "respaldo",
+       "respaldoDe": "cutkosky"
       }
      ]
     },
